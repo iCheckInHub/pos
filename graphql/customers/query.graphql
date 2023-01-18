@@ -1,0 +1,229 @@
+query getProfile {
+  me {
+    id
+    name
+    email
+    avatar
+  }
+}
+
+query getPlaceList {
+  placeList {
+    id
+    name
+    address
+  }
+}
+
+query getPlaces($first: Int, $page: Int) {
+  places(first: $first, page: $page) {
+    data {
+      id
+      name
+      description
+      phone
+      image
+      cover
+      address
+      hours
+    }
+    paginatorInfo {
+      currentPage
+      lastPage
+      perPage
+      total
+      hasMorePages
+      count
+      firstItem
+      lastItem
+    }
+  }
+}
+
+query getPlace($id: ID!) {
+  place(id: $id) {
+    id
+    name
+    description
+    phone
+    image
+    cover
+    address
+    hours
+  }
+}
+
+query getOrders(
+  $search: String
+  $place_id: ID
+  $status: OrderStatus
+  $page: Int
+  $orderBy: [QueryOrdersOrderByOrderByClause!]
+) {
+  orders(
+    place_id: $place_id
+    page: $page
+    orderBy: $orderBy
+    status: $status
+    search: $search
+  ) {
+    data {
+      id
+      no
+      status
+      total
+      created_at
+      user {
+        id
+        name
+        avatar
+      }
+    }
+    paginatorInfo {
+      count
+      currentPage
+      firstItem
+      hasMorePages
+      lastItem
+      lastPage
+      perPage
+      total
+    }
+  }
+}
+
+query getOrder($id: ID!) {
+  order(id: $id) {
+    id
+    status
+    no
+    total
+    user {
+      id
+      name
+      avatar
+    }
+    place {
+      id
+      name
+    }
+    items {
+      id
+      quantity
+      price
+      service {
+        id
+        name
+        image
+        extras {
+          id
+          name
+          options {
+            id
+            name
+            price
+          }
+        }
+      }
+    }
+    created_at
+  }
+}
+
+query getMenus($place_id: ID!) {
+  menus(place_id: $place_id) {
+    id
+    name
+    image
+    description
+    active
+    items {
+      id
+      name
+      image
+      description
+      active
+      parent_id
+      services {
+        id
+        name
+        image
+        price
+        active
+      }
+    }
+  }
+}
+
+query getService($id: ID!) {
+  service(id: $id) {
+    id
+    name
+    image
+    price
+    duration
+    description
+    top
+    active
+    place_id
+    extras {
+      id
+      multiple
+      name
+      description
+      active
+      options {
+        id
+        name
+        price
+        duration
+        description
+        active
+      }
+    }
+  }
+}
+
+query getEmployees($place_id: ID) {
+  employees(place_id: $place_id) {
+    data {
+      id
+      name
+      email
+      phone
+      avatar
+      created_at
+    }
+    paginatorInfo {
+      count
+      currentPage
+      firstItem
+      hasMorePages
+      lastItem
+      lastPage
+      perPage
+      total
+    }
+  }
+}
+
+query getEmployee($id: ID!) {
+  employee(id: $id) {
+    id
+    name
+    email
+    phone
+    avatar
+    birthday
+    address
+    gender
+    active
+    placeIds
+    places {
+      id
+      name
+      address
+    }
+    created_at
+  }
+}

@@ -1,0 +1,37 @@
+import type { CodegenConfig } from '@graphql-codegen/cli';
+
+const config: CodegenConfig = {
+  overwrite: true,
+  schema: 'http://api.icheckin.test/graphql?schema=pos',
+  documents: 'graphql/**/*.graphql',
+
+  // watch: true,
+  // watchConfig: {
+  //   usePolling: true,
+  //   interval: 5000,
+  // },
+  generates: {
+    './types/graphql.ts': {
+      plugins: ['typescript', 'typescript-operations'],
+      config: {
+        noExport: true,
+        enumValues: true,
+        skipTypename: true,
+        typesPrefix: 'T',
+      },
+    },
+    './utils/graphql.ts': {
+      plugins: ['typescript-vue-apollo'],
+      config: {
+        withCompositionFunctions: true,
+        skipTypename: true,
+        addDocBlocks: true,
+        typesPrefix: 'T',
+        vueApolloComposableImportFrom: '@vue/apollo-composable',
+        vueCompositionApiImportFrom: 'vue',
+      },
+    },
+  },
+};
+
+export default config;
