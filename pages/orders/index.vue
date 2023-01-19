@@ -68,20 +68,21 @@
         @update:sort-by="
           filters.orderBy = parseOrderByVariablesToQuery($event) as any
         "
+        class="row-hover"
       >
       </v-data-table-server>
-      <v-pagination
-        size="x-small"
-        :length="paginator.lastPage"
-        :model-value="filterVariables.page"
-        @update:model-value="filters.page = $event.toString() as any"
-        active-color="primary"
-        color="grey-darken-5"
-        total-visible="5"
-        class="mx-auto"
-        variant="tonal"
-      ></v-pagination>
     </v-card-item>
+    <v-pagination
+      size="small"
+      rounded="pill"
+      variant="tonal"
+      :length="paginator.lastPage"
+      :model-value="filterVariables.page"
+      @update:model-value="filters.page = $event.toString() as any"
+      active-color="primary"
+      total-visible="5"
+      class="mx-auto"
+    ></v-pagination>
   </v-card>
 </template>
 <script lang="ts" setup>

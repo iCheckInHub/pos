@@ -48,6 +48,10 @@ export default defineNuxtPlugin((nuxtApp) => {
         VToolbar: {
           color: 'transparent',
         },
+        VDataTable: {
+          fixedHeader: true,
+          noDataText: 'Results not found',
+        },
       },
       theme: {
         defaultTheme: 'main',

@@ -8,3 +8,11 @@
   opacity: 0;
   filter: blur(0.5rem);
 }
+
+.row-hover tbody tr:hover {
+  cursor: pointer;
+}
+
+.row-hover tbody tr:hover td {
+  background-color: #f3f3f3 !important;
+}

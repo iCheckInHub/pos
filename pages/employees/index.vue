@@ -63,15 +63,13 @@
       </v-data-table-server>
     </v-card-item>
     <v-pagination
-      size="x-small"
+      size="small"
+      rounded="pill"
       :length="paginator.lastPage"
       :model-value="filterVariables.page"
       @update:model-value="filters.page = $event.toString() as any"
-      active-color="primary"
-      color="grey-darken-5"
-      total-visible="4"
+      total-visible="5"
       class="mx-auto"
-      variant="tonal"
     ></v-pagination>
   </v-card>
 </template>
@@ -98,7 +96,6 @@ const filterVariables = computed(() => {
 
 const headers = [
   { title: 'Employee.', key: 'name' },
-
   { title: 'Phone', key: 'phone', align: 'end' },
   { title: 'Time', key: 'created_at', align: 'end' },
 ];

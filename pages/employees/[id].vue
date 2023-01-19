@@ -109,7 +109,35 @@
               ></v-btn>
             </div>
 
-            <template v-if="!addMorePlace">
+            <v-select
+              :items="places"
+              item-title="name"
+              item-value="id"
+              v-model="employee.placeIds"
+              multiple
+              variant="plain"
+            >
+              <template v-slot:selection="{ item }">
+                <v-list-item
+                  :title="item?.title"
+                  :subtitle="item.raw.address"
+                  class="px-0"
+                ></v-list-item>
+              </template>
+              <template v-slot:item="{ props, item }">
+                <v-list-item
+                  v-bind="props"
+                  :prepend-icon="
+                    employee.placeIds?.includes(item.value)
+                      ? 'mdi-checkbox-marked'
+                      : 'mdi-checkbox-blank-outline'
+                  "
+                  :title="item?.title"
+                  :subtitle="item?.value"
+                ></v-list-item>
+              </template>
+            </v-select>
+            <!-- <template v-if="!addMorePlace">
               <template v-for="(place, index) in places">
                 <v-list-item
                   class="px-0"
@@ -144,7 +172,7 @@
                   :subtitle="item?.value"
                 ></v-list-item>
               </template>
-            </v-select>
+            </v-select> -->
           </v-col>
         </v-row>
         <v-card-actions>
@@ -177,7 +205,7 @@ const { onResult } = useGetEmployeeQuery(
     id: params.id as string,
   },
   {
-    fetchPolicy: 'network-only',
+    enabled: !!params.id,
   }
 );
 

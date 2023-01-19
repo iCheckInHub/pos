@@ -282,11 +282,16 @@
 </template>
 
 <script lang="ts" setup>
-import { useRouteParams } from '@vueuse/router';
+const { params } = useRoute();
 
-const { loading, onResult, refetch } = useGetServiceQuery({
-  id: useRouteParams('id') as any,
-});
+const { loading, onResult } = useGetServiceQuery(
+  {
+    id: params.id as any,
+  },
+  {
+    enabled: !!params.id,
+  }
+);
 
 const dialogExtra = ref(false);
 const dialogExtraOption = ref(false);

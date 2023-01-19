@@ -57,7 +57,7 @@
       </v-card>
     </v-navigation-drawer>
     <v-col cols="8">
-      <v-card variant="flat">
+      <v-card variant="flat" :loading="loading">
         <v-card-title class="d-flex align-end justify-space-between">
           <span class="text-secondary mr-2">No.</span>
           <strong>{{ order.no }}</strong>
@@ -177,9 +177,11 @@
 import { useRouteParams } from '@vueuse/router';
 const drawer = ref(false);
 
-const { result } = useGetOrderQuery({
-  id: useRouteParams('id') as any,
-});
+const { params } = useRoute();
+
+const { result, loading } = useGetOrderQuery({ id: params.id as any }, () => ({
+  enabled: !!params.id,
+}));
 
 const order = computed(() => result.value?.order || ({} as TOrder));
 
