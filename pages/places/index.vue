@@ -48,15 +48,7 @@
         </v-list-item>
       </template>
     </v-card-item>
-    <v-pagination
-      size="x-small"
-      :length="10"
-      active-color="primary"
-      color="grey-darken-5"
-      total-visible="5"
-      class="mx-auto"
-      variant="tonal"
-    ></v-pagination>
+    <v-pagination :length="10"></v-pagination>
   </v-card>
 </template>
 

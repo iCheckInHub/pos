@@ -56,33 +56,28 @@
       />
     </v-card-text>
     <v-card-item>
-      <v-data-table-server
+      <v-data-table
         :headers="headers"
         :items-length="paginator.total"
         :items="orders"
         :loading="loadingOrders"
         multi-sort
-        hide-default-footer
-        :sort-by="filterVariables.orderBy"
         @click:row="(event:any, {item}:any) => $router.push({name: 'orders-id', params: {id: item.value}})"
+        hide-default-footer
+        :sort-by="parseOrderByVariablesToKey(filterVariables.orderBy)"
         @update:sort-by="
           filters.orderBy = parseOrderByVariablesToQuery($event) as any
         "
         class="row-hover"
       >
-      </v-data-table-server>
+        <template v-slot:bottom></template>
+      </v-data-table>
     </v-card-item>
     <v-pagination
-      size="small"
-      rounded="pill"
-      variant="tonal"
       :length="paginator.lastPage"
       :model-value="filterVariables.page"
       @update:model-value="filters.page = $event.toString() as any"
-      active-color="primary"
-      total-visible="5"
-      class="mx-auto"
-    ></v-pagination>
+    />
   </v-card>
 </template>
 <script lang="ts" setup>

@@ -23,10 +23,10 @@ export const useColorStatus = (
   type?: 'text' | 'bg'
 ): string => {
   const colors = {
-    pending: 'yellow-lighten-2',
-    confirmed: 'blue-darken-1',
-    canceled: 'red-darken-1',
-    completed: 'green-darken-1',
+    pending: 'yellow',
+    confirmed: 'blue',
+    canceled: 'red',
+    completed: 'green',
   } as any;
 
   const color = colors[status] || 'default';
@@ -59,16 +59,18 @@ export const parseOrderByQueryToColumn = (value: any) => {
     })) as any[];
 };
 
-export const renameOrderByColumnToKey = (value: any) => {
-  if (!value || !value.length) return undefined;
+export const parseOrderByVariablesToKey = (value: any) => {
+  if (!value || !value.length) return [];
 
-  return value.map(({ key, order }: any) => ({
-    column: key.toUpperCase(),
-    order: order.toUpperCase(),
+  return value.map(({ column, order }: any) => ({
+    key: column.toLowerCase(),
+    order: order.toLowerCase(),
   }));
 };
 
 export const parseOrderByVariablesToQuery = (value: any[]) => {
+  console.log(value);
+
   if (!value || !value.length) return undefined;
   return value.map(({ key, order }: any) => `${key}:${order}`);
 };

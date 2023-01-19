@@ -37,16 +37,16 @@
       />
     </v-card-text>
     <v-card-item>
-      <v-data-table-server
+      <v-data-table
         :headers="headers"
         :items-length="paginator.total"
         :items="employees"
         :loading="loadingEmployees"
         multi-sort
         hide-default-footer
-        :sort-by="filterVariables.orderBy"
         @click:row="(event:any, {item}:any) => $router.push({name: 'employees-id', params: {id: item.value}})"
       >
+        <template #bottom></template>
         <template #item.name="{ item }">
           <v-list-item
             lines="two"
@@ -60,16 +60,12 @@
         <template #item.phone="{ item }">
           {{ mask.masked(item.raw.phone) }}
         </template>
-      </v-data-table-server>
+      </v-data-table>
     </v-card-item>
     <v-pagination
-      size="small"
-      rounded="pill"
       :length="paginator.lastPage"
       :model-value="filterVariables.page"
-      @update:model-value="filters.page = $event.toString() as any"
-      total-visible="5"
-      class="mx-auto"
+      @update:model-value="filters.page = $event.toString()"
     ></v-pagination>
   </v-card>
 </template>
@@ -81,7 +77,7 @@ definePageMeta({
   keepalive: true,
 });
 const filters = reactive({
-  page: useRouteQuery('page', '1', { mode: 'push' }),
+  page: useRouteQuery<string>('page', '1', { mode: 'push' }),
   place_id: useRouteQuery('place_id', null, { mode: 'push' }),
 });
 
