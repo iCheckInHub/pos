@@ -616,8 +616,8 @@ export function useGetServiceLazyQuery(variables: TGetServiceQueryVariables | Vu
 }
 export type GetServiceQueryCompositionFunctionResult = VueApolloComposable.UseQueryReturn<TGetServiceQuery, TGetServiceQueryVariables>;
 export const GetEmployeesDocument = gql`
-    query getEmployees($place_id: ID) {
-  employees(place_id: $place_id) {
+    query getEmployees($place_id: ID, $search: String) {
+  employees(place_id: $place_id, search: $search) {
     data {
       id
       name
@@ -627,6 +627,10 @@ export const GetEmployeesDocument = gql`
       created_at
       active
       birthday
+      roles {
+        id
+        name
+      }
     }
     paginatorInfo {
       count
@@ -655,6 +659,7 @@ export const GetEmployeesDocument = gql`
  * @example
  * const { result, loading, error } = useGetEmployeesQuery({
  *   place_id: // value for 'place_id'
+ *   search: // value for 'search'
  * });
  */
 export function useGetEmployeesQuery(variables: TGetEmployeesQueryVariables | VueCompositionApi.Ref<TGetEmployeesQueryVariables> | ReactiveFunction<TGetEmployeesQueryVariables> = {}, options: VueApolloComposable.UseQueryOptions<TGetEmployeesQuery, TGetEmployeesQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<TGetEmployeesQuery, TGetEmployeesQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<TGetEmployeesQuery, TGetEmployeesQueryVariables>> = {}) {
@@ -677,12 +682,16 @@ export const GetEmployeeDocument = gql`
     gender
     active
     placeIds
+    created_at
     places {
       id
       name
       address
     }
-    created_at
+    roles {
+      id
+      name
+    }
   }
 }
     `;

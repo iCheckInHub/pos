@@ -184,8 +184,8 @@ query getService($id: ID!) {
   }
 }
 
-query getEmployees($place_id: ID) {
-  employees(place_id: $place_id) {
+query getEmployees($place_id: ID, $search: String) {
+  employees(place_id: $place_id, search: $search) {
     data {
       id
       name
@@ -195,6 +195,10 @@ query getEmployees($place_id: ID) {
       created_at
       active
       birthday
+      roles {
+        id
+        name
+      }
     }
     paginatorInfo {
       count
@@ -221,11 +225,15 @@ query getEmployee($id: ID!) {
     gender
     active
     placeIds
+    created_at
     places {
       id
       name
       address
     }
-    created_at
+    roles {
+      id
+      name
+    }
   }
 }

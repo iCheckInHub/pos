@@ -21,7 +21,7 @@
         density="compact"
       />
     </v-card-text>
-    <v-card-text class="d-flex">
+    <v-card-text>
       <v-row dense>
         <v-col
           ><v-select

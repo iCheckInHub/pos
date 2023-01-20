@@ -16,6 +16,8 @@
         variant="outlined"
         color="secondary"
         density="compact"
+        clearable
+        v-model="filters.search"
       />
     </v-card-text>
     <v-card-text class="d-flex">
@@ -85,6 +87,11 @@
         <template #item.phone="{ item }">
           {{ !item.raw.phone ? '' : mask.masked(item.raw.phone) }}
         </template>
+        <template #item.roles="{ item }">
+          <span class="text-capitalize">{{
+            item.raw.roles.map((role: any) => role.name).join(', ')
+          }}</span>
+        </template>
       </v-data-table>
     </v-card-item>
     <v-pagination
@@ -104,14 +111,16 @@ definePageMeta({
 const filters = reactive({
   page: useRouteQuery<string>('page', '1', { mode: 'push' }),
   place_id: useRouteQuery('place_id', null, { mode: 'push' }),
+  search: useRouteQuery('search', null, { mode: 'push' }),
 });
 
-const mask = new Mask({ mask: '(###) ###-####' });
+const mask = new Mask({ mask: '+# (###) ###-####' });
 
 const filterVariables = computed(() => {
   return filterEmptyProperties({
     page: parseInt(filters.page),
     place_id: filters.place_id,
+    search: filters.search,
   });
 });
 
@@ -119,6 +128,7 @@ const headers = [
   { title: 'Employee.', key: 'name' },
   { title: 'Phone', key: 'phone', align: 'end' },
   { title: 'Birthday', key: 'birthday', align: 'end' },
+  { title: 'Roles', key: 'roles', align: 'end' },
 ];
 
 const { loading: loadingPlaces, result: resultPlaces } = useGetPlaceListQuery();

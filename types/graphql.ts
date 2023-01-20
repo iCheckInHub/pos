@@ -64,6 +64,8 @@ type TEmployee = {
   placeIds?: Maybe<Array<Scalars['ID']>>;
   /** A list of places offered by the employee. */
   places: Array<TPlace>;
+  /** A list of places offered by the employee. */
+  roles: Array<TRole>;
   /** Access token for the employee. */
   token?: Maybe<Scalars['String']>;
   /** The date and time when the user's account was last updated. */
@@ -482,7 +484,7 @@ type TPlacePaginator = {
 type TQuery = {
   employee: TEmployee;
   employees?: Maybe<TEmployeePaginator>;
-  me?: Maybe<TUser>;
+  me?: Maybe<TEmployee>;
   menus?: Maybe<Array<TMenu>>;
   order: TOrder;
   orders?: Maybe<TOrderPaginator>;
@@ -505,6 +507,7 @@ type TQueryEmployeesArgs = {
   first?: InputMaybe<Scalars['Int']>;
   page?: InputMaybe<Scalars['Int']>;
   place_id?: InputMaybe<Scalars['ID']>;
+  search?: InputMaybe<Scalars['String']>;
 };
 
 
@@ -556,6 +559,12 @@ type TQueryOrdersOrderByOrderByClause = {
   column: TQueryOrdersOrderByColumn;
   /** The direction that is used for ordering. */
   order: TSortOrder;
+};
+
+type TRole = {
+  guard_name?: Maybe<Scalars['String']>;
+  id: Scalars['ID'];
+  name: Scalars['String'];
 };
 
 /** The available SQL operators that are used to filter query results. */
@@ -785,14 +794,15 @@ type TGetServiceQuery = { service: { id: string, name: string, image: string, pr
 
 type TGetEmployeesQueryVariables = Exact<{
   place_id?: InputMaybe<Scalars['ID']>;
+  search?: InputMaybe<Scalars['String']>;
 }>;
 
 
-type TGetEmployeesQuery = { employees?: { data: Array<{ id: string, name: string, email?: string | null, phone?: string | null, avatar?: string | null, created_at: any, active: boolean, birthday?: any | null }>, paginatorInfo: { count: number, currentPage: number, firstItem?: number | null, hasMorePages: boolean, lastItem?: number | null, lastPage: number, perPage: number, total: number } } | null };
+type TGetEmployeesQuery = { employees?: { data: Array<{ id: string, name: string, email?: string | null, phone?: string | null, avatar?: string | null, created_at: any, active: boolean, birthday?: any | null, roles: Array<{ id: string, name: string }> }>, paginatorInfo: { count: number, currentPage: number, firstItem?: number | null, hasMorePages: boolean, lastItem?: number | null, lastPage: number, perPage: number, total: number } } | null };
 
 type TGetEmployeeQueryVariables = Exact<{
   id: Scalars['ID'];
 }>;
 
 
-type TGetEmployeeQuery = { employee: { id: string, name: string, email?: string | null, phone?: string | null, avatar?: string | null, birthday?: any | null, address?: string | null, gender?: string | null, active: boolean, placeIds?: Array<string> | null, created_at: any, places: Array<{ id: string, name: string, address: string }> } };
+type TGetEmployeeQuery = { employee: { id: string, name: string, email?: string | null, phone?: string | null, avatar?: string | null, birthday?: any | null, address?: string | null, gender?: string | null, active: boolean, placeIds?: Array<string> | null, created_at: any, places: Array<{ id: string, name: string, address: string }>, roles: Array<{ id: string, name: string }> } };

@@ -2,39 +2,48 @@
   <v-container>
     <v-form @submit.prevent="onSave">
       <v-card color="white" :loading="loading">
-        <v-card-title class="pa-0">
-          <v-list-item class="py-3">
-            <template #prepend>
-              <v-list-item-action>
-                <v-avatar>
-                  <v-img
-                    v-if="employee.avatar"
-                    :src="(employee.avatar as string)"
-                    cover
-                  />
-                  <v-icon v-else icon="mdi-account"></v-icon>
-                </v-avatar>
-              </v-list-item-action>
-            </template>
-            <v-list-item-title>
-              <v-text-field
-                placeholder="Employee Name"
-                v-model="employee.name"
-                variant="plain"
-                single-line
-              ></v-text-field>
-            </v-list-item-title>
-            <template #append>
+        <v-list-item class="my-3">
+          <template #prepend>
+            <v-avatar>
+              <v-img
+                v-if="employee.avatar"
+                :src="(employee.avatar as string)"
+                cover
+              />
+              <v-icon v-else icon="mdi-account"></v-icon>
+            </v-avatar>
+          </template>
+          <v-list-item-title>
+            <v-text-field
+              placeholder="Employee Name"
+              v-model="employee.name"
+              variant="plain"
+              density="compact"
+              single-line
+              hide-details
+              class="mt-n3 font-weight-bold"
+            ></v-text-field>
+          </v-list-item-title>
+          <v-list-item-subtitle
+            class="text-light-blue text-capitalize text-body-1"
+          >
+            {{ employee?.roles?.map((item: any) => item.name)?.join(', ') }}
+          </v-list-item-subtitle>
+          <template #append>
+            <v-slide-y-transition>
               <v-chip
                 v-if="!employee.active"
-                color="error"
+                color="red"
                 prepend-icon="mdi-briefcase"
+                variant="text"
+                class="text-capitalize text-body-1 px-1"
                 >Inactive</v-chip
               >
-            </template>
-          </v-list-item>
-        </v-card-title>
+            </v-slide-y-transition>
+          </template>
+        </v-list-item>
         <v-divider />
+
         <v-row>
           <v-col cols="6">
             <v-sheet class="px-3">
@@ -44,15 +53,15 @@
               >
               <v-text-field
                 label="Phone"
-                placeholder="Employee phone"
                 v-model="employee.phone"
                 variant="plain"
-                :hint="
-                  employee.phone
-                    ? mask.masked(employee.phone)
-                    : '(555) 555-5555'
-                "
               ></v-text-field>
+              <input
+                v-model="employee.phone"
+                v-maska
+                data-maska="+1 ### ###-####"
+                class="d-none"
+              />
               <v-text-field
                 label="Email"
                 placeholder="Employee email"
@@ -90,98 +99,51 @@
               ></v-switch>
             </v-sheet>
           </v-col>
-          <v-divider vertical />
+          <v-divider vertical class="mt-3" />
           <v-col cols="6">
-            <div class="d-flex align-center py-3">
-              <span
-                class="text-body-2 font-weight-bold text-secondary text-uppercase"
+            <v-sheet class="px-3">
+              <v-list-subheader
+                class="font-weight-bold text-secondary text-uppercase"
+                >Places</v-list-subheader
               >
-                Places
-              </span>
-              <v-spacer />
-              <v-btn
-                icon="mdi-pencil"
-                size="x-small"
-                color="secondary"
-                density="comfortable"
-                variant="outlined"
-                @click="addMorePlace = !addMorePlace"
-              ></v-btn>
-            </div>
-
-            <v-select
-              :items="places"
-              item-title="name"
-              item-value="id"
-              v-model="employee.placeIds"
-              multiple
-              variant="plain"
-            >
-              <template v-slot:selection="{ item }">
-                <v-list-item
-                  :title="item?.title"
-                  :subtitle="item.raw.address"
-                  class="px-0"
-                ></v-list-item>
-              </template>
-              <template v-slot:item="{ props, item }">
-                <v-list-item
-                  v-bind="props"
-                  :prepend-icon="
-                    employee.placeIds?.includes(item.value)
-                      ? 'mdi-checkbox-marked'
-                      : 'mdi-checkbox-blank-outline'
-                  "
-                  :title="item?.title"
-                  :subtitle="item?.value"
-                ></v-list-item>
-              </template>
-            </v-select>
-            <!-- <template v-if="!addMorePlace">
-              <template v-for="(place, index) in places">
-                <v-list-item
-                  class="px-0"
-                  v-if="employee.placeIds?.includes(place.id)"
-                >
-                  <v-list-item-title class="font-weight-bold">{{
-                    place.name
-                  }}</v-list-item-title>
-                  <v-list-item-subtitle class="text-secondary">{{
-                    place.address
-                  }}</v-list-item-subtitle>
-                </v-list-item>
-              </template>
-            </template>
-            <v-select
-              v-else
-              :items="places"
-              item-title="name"
-              item-value="id"
-              v-model="employee.placeIds"
-              multiple
-            >
-              <template v-slot:item="{ props, item }">
-                <v-list-item
-                  v-bind="props"
-                  :prepend-icon="
-                    employee.placeIds?.includes(item.value)
-                      ? 'mdi-checkbox-marked'
-                      : 'mdi-checkbox-blank-outline'
-                  "
-                  :title="item?.title"
-                  :subtitle="item?.value"
-                ></v-list-item>
-              </template>
-            </v-select> -->
+              <v-select
+                :items="places"
+                item-title="name"
+                item-value="id"
+                v-model="employee.placeIds"
+                multiple
+                variant="plain"
+              >
+                <template v-slot:selection="{ item }">
+                  <v-list-item
+                    :title="item?.title"
+                    :subtitle="item.raw.address"
+                    class="px-0"
+                  ></v-list-item>
+                </template>
+                <template v-slot:item="{ props, item }">
+                  <v-list-item
+                    v-bind="props"
+                    :prepend-icon="
+                      employee.placeIds?.includes(item.value)
+                        ? 'mdi-checkbox-marked'
+                        : 'mdi-checkbox-blank-outline'
+                    "
+                    :title="item?.title"
+                    :subtitle="item?.value"
+                  ></v-list-item>
+                </template>
+              </v-select>
+            </v-sheet>
           </v-col>
         </v-row>
-        <v-card-actions>
+        <v-card-actions class="ma-5">
           <v-spacer />
           <v-btn
             color="primary"
             rounded="pill"
-            width="100"
-            variant="flat"
+            width="120"
+            variant="elevated"
             type="submit"
             :loading="loadingSaveEmployee"
             >Save</v-btn
@@ -193,11 +155,10 @@
 </template>
 
 <script lang="ts" setup>
-import { Mask } from 'maska';
-const mask = new Mask({ mask: '(###) ###-####' });
+import { vMaska } from 'maska';
+
 const { params } = useRoute();
 const employee = ref({} as any);
-const addMorePlace = ref(false);
 const { result: resultPlaces } = useGetPlaceListQuery();
 
 const { onResult } = useGetEmployeeQuery(
@@ -240,6 +201,5 @@ const { mutate: saveEmployee, loading: loadingSaveEmployee } =
 
 const onSave = () => {
   saveEmployee();
-  addMorePlace.value = false;
 };
 </script>
