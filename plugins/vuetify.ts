@@ -59,7 +59,7 @@ export default defineNuxtPlugin((nuxtApp) => {
           size: 'x-small',
           activeColor: 'primary',
           color: 'secondary-lighten-2',
-          totalVisible: '7',
+          totalVisible: 7,
           variant: 'outlined',
         },
       },

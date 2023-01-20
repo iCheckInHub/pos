@@ -104,11 +104,15 @@
               <td class="px-0">
                 <v-list-item>
                   <v-list-item-title class="font-weight-bold">{{
-                    item.service.name
+                    item.data?.service?.name
                   }}</v-list-item-title>
-                  <v-list-item-subtitle>{{
-                    item.service.name
-                  }}</v-list-item-subtitle>
+                  <v-list-item-subtitle>
+                    {{
+                      item.data?.options
+                        ?.map((option) => option.name)
+                        .join(', ')
+                    }}
+                  </v-list-item-subtitle>
                 </v-list-item>
               </td>
               <td class="font-weight-bold">
@@ -156,8 +160,9 @@
         <p class="font-weight-bold text-secondary">Customer</p>
         <v-list-item
           class="px-0"
-          :prepend-avatar="(order?.user?.avatar as string)"
-          :title="order?.user?.name"
+          :prepend-avatar="(order?.customer?.avatar as string)"
+          :title="order?.customer?.name"
+          :subtitle="(order?.customer?.phone as string)"
         ></v-list-item>
         <v-list-subheader class="font-weight-bold text-secondary">
           Note

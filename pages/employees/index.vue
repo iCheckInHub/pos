@@ -118,7 +118,7 @@ const filterVariables = computed(() => {
 const headers = [
   { title: 'Employee.', key: 'name' },
   { title: 'Phone', key: 'phone', align: 'end' },
-  { title: 'Time', key: 'created_at', align: 'end' },
+  { title: 'Birthday', key: 'birthday', align: 'end' },
 ];
 
 const { loading: loadingPlaces, result: resultPlaces } = useGetPlaceListQuery();

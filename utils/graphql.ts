@@ -463,6 +463,7 @@ export const GetOrderDocument = gql`
       id
       name
       avatar
+      phone
     }
     place {
       id
@@ -472,18 +473,16 @@ export const GetOrderDocument = gql`
       id
       quantity
       price
-      service {
-        id
-        name
-        image
-        extras {
+      data {
+        service {
           id
           name
-          options {
-            id
-            name
-            price
-          }
+          image
+        }
+        options {
+          id
+          name
+          price
         }
       }
     }
@@ -627,6 +626,7 @@ export const GetEmployeesDocument = gql`
       avatar
       created_at
       active
+      birthday
     }
     paginatorInfo {
       count

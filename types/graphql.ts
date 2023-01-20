@@ -12,6 +12,7 @@ type Scalars = {
   Float: number;
   Date: any;
   DateTime: any;
+  JSON: any;
   Mixed: any;
 };
 
@@ -362,6 +363,7 @@ enum TOrderByRelationWithColumnAggregateFunction {
 type TOrderItem = {
   /** The date and time when the order item was created. */
   created_at: Scalars['DateTime'];
+  data?: Maybe<TOrderItemData>;
   /** The employee associated with the order item. */
   employee?: Maybe<TEmployee>;
   /** The unique primary key for the order item. */
@@ -376,6 +378,11 @@ type TOrderItem = {
   service: TMenuService;
   /** The date and time when the order item was last updated. */
   updated_at: Scalars['DateTime'];
+};
+
+type TOrderItemData = {
+  options?: Maybe<Array<TMenuServiceExtraOption>>;
+  service?: Maybe<TMenuService>;
 };
 
 /** A paginated list of Order items. */
@@ -760,7 +767,7 @@ type TGetOrderQueryVariables = Exact<{
 }>;
 
 
-type TGetOrderQuery = { order: { id: string, status: TOrderStatus, no: string, total: number, created_at: any, customer: { id: string, name: string, avatar?: string | null }, place: { id: string, name: string }, items: Array<{ id: string, quantity: number, price: number, service: { id: string, name: string, image: string, extras: Array<{ id: string, name: string, options: Array<{ id: string, name: string, price: number }> }> } }> } };
+type TGetOrderQuery = { order: { id: string, status: TOrderStatus, no: string, total: number, created_at: any, customer: { id: string, name: string, avatar?: string | null, phone?: string | null }, place: { id: string, name: string }, items: Array<{ id: string, quantity: number, price: number, data?: { service?: { id: string, name: string, image: string } | null, options?: Array<{ id: string, name: string, price: number }> | null } | null }> } };
 
 type TGetMenusQueryVariables = Exact<{
   place_id: Scalars['ID'];
@@ -781,7 +788,7 @@ type TGetEmployeesQueryVariables = Exact<{
 }>;
 
 
-type TGetEmployeesQuery = { employees?: { data: Array<{ id: string, name: string, email?: string | null, phone?: string | null, avatar?: string | null, created_at: any, active: boolean }>, paginatorInfo: { count: number, currentPage: number, firstItem?: number | null, hasMorePages: boolean, lastItem?: number | null, lastPage: number, perPage: number, total: number } } | null };
+type TGetEmployeesQuery = { employees?: { data: Array<{ id: string, name: string, email?: string | null, phone?: string | null, avatar?: string | null, created_at: any, active: boolean, birthday?: any | null }>, paginatorInfo: { count: number, currentPage: number, firstItem?: number | null, hasMorePages: boolean, lastItem?: number | null, lastPage: number, perPage: number, total: number } } | null };
 
 type TGetEmployeeQueryVariables = Exact<{
   id: Scalars['ID'];

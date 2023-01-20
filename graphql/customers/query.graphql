@@ -103,6 +103,7 @@ query getOrder($id: ID!) {
       id
       name
       avatar
+      phone
     }
     place {
       id
@@ -112,18 +113,16 @@ query getOrder($id: ID!) {
       id
       quantity
       price
-      service {
-        id
-        name
-        image
-        extras {
+      data {
+        service {
           id
           name
-          options {
-            id
-            name
-            price
-          }
+          image
+        }
+        options {
+          id
+          name
+          price
         }
       }
     }
@@ -195,6 +194,7 @@ query getEmployees($place_id: ID) {
       avatar
       created_at
       active
+      birthday
     }
     paginatorInfo {
       count
