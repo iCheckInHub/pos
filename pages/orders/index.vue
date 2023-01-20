@@ -1,5 +1,5 @@
 <template>
-  <v-card>
+  <v-card :loading="loadingOrders">
     <v-card-text class="d-flex align-center justify-space-between">
       <v-btn
         rounded="pill"
@@ -13,54 +13,71 @@
       <v-text-field
         append-inner-icon="mdi-magnify"
         label="Search"
-        single-line
         hide-details
         clearable
         v-model="filters.search"
+        variant="outlined"
+        color="secondary"
+        density="compact"
       />
     </v-card-text>
     <v-card-text class="d-flex">
-      <v-select
-        :items="places"
-        label="Place"
-        clearable
-        hide-details
-        item-title="name"
-        item-value="id"
-        :loading="loadingPlaces"
-        v-model="filters.place_id"
-      />
-      <v-select
-        :items="statusList"
-        v-model="filters.status"
-        label="Status"
-        clearable
-        hide-details
-      >
-        <template #item="{ item, props }">
-          <v-list-item v-bind="props">
-            <template #append>
-              <v-icon
-                icon="mdi-circle"
-                :color="useColorStatus(item.title)"
-                size="x-small"
-              ></v-icon>
+      <v-row dense>
+        <v-col
+          ><v-select
+            :items="places"
+            label="Place"
+            clearable
+            hide-details
+            item-title="name"
+            item-value="id"
+            :loading="loadingPlaces"
+            v-model="filters.place_id"
+            variant="outlined"
+            color="secondary"
+            density="compact"
+        /></v-col>
+        <v-col>
+          <v-select
+            :items="statusList"
+            v-model="filters.status"
+            label="Status"
+            clearable
+            hide-details
+            variant="outlined"
+            color="secondary"
+            density="compact"
+          >
+            <template #item="{ item, props }">
+              <v-list-item v-bind="props">
+                <template #append>
+                  <v-icon
+                    icon="mdi-circle"
+                    :color="useColorStatus(item.value)"
+                    size="x-small"
+                  ></v-icon>
+                </template>
+              </v-list-item>
             </template>
-          </v-list-item>
-        </template>
-      </v-select>
-      <v-text-field
-        label="Date"
-        hide-details
-        prepend-inner-icon="mdi-calendar-range"
-      />
+          </v-select>
+        </v-col>
+        <v-col>
+          <v-text-field
+            label="Date"
+            hide-details
+            prepend-inner-icon="mdi-calendar-range"
+            variant="outlined"
+            color="secondary"
+            density="compact"
+          />
+        </v-col>
+      </v-row>
     </v-card-text>
     <v-card-item>
       <v-data-table
         :headers="headers"
         :items-length="paginator.total"
         :items="orders"
-        :loading="loadingOrders"
         multi-sort
         @click:row="(event:any, {item}:any) => $router.push({name: 'orders-id', params: {id: item.value}})"
         hide-default-footer
@@ -68,8 +85,34 @@
         @update:sort-by="
           filters.orderBy = parseOrderByVariablesToQuery($event) as any
         "
-        class="row-hover"
+        class="row-hover text-secondary"
       >
+        <template v-slot:item.no="{ item }">
+          <strong class="text-body-1 font-weight-bold text-black">{{
+            item.raw.no
+          }}</strong></template
+        >
+        <template v-slot:item.customer="{ item }">
+          <v-list-item
+            nav
+            :title="item.raw.customer.name"
+            :subtitle="item.raw.customer.phone"
+            class="px-0"
+          >
+            <template #prepend>
+              <v-avatar :image="item.raw.customer.avatar" size="32"></v-avatar>
+            </template>
+          </v-list-item>
+        </template>
+
+        <template v-slot:item.status="{ item }">
+          <v-chip
+            :color="useColorStatus(item.raw.status)"
+            variant="text"
+            class="text-capitalize font-weight-medium"
+            >{{ item.raw.status }}</v-chip
+          >
+        </template>
         <template v-slot:bottom></template>
       </v-data-table>
     </v-card-item>
@@ -93,10 +136,10 @@ const headers = [
     sortable: true,
     key: 'no',
   },
-  { title: 'Customer', key: 'user.name', align: 'end' },
+  { title: 'Customer', key: 'customer', align: 'start' },
   { title: 'Status', key: 'status', align: 'end' },
-  { title: 'Total', key: 'total', align: 'end' },
   { title: 'Time', key: 'created_at', align: 'end' },
+  { title: 'Total', key: 'total', align: 'end' },
 ];
 
 const statusList = [
@@ -132,6 +175,8 @@ const { result: resultOrders, loading: loadingOrders } = useGetOrdersQuery(
     debounce: 500,
   }
 );
+
+const loading = useQueryLoading();
 
 const places = computed(() => resultPlaces.value?.placeList ?? []);
 const orders = computed(() => resultOrders.value?.orders?.data ?? []);

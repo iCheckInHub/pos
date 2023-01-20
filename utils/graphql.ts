@@ -405,10 +405,11 @@ export const GetOrdersDocument = gql`
       status
       total
       created_at
-      user {
+      customer {
         id
         name
         avatar
+        phone
       }
     }
     paginatorInfo {
@@ -458,7 +459,7 @@ export const GetOrderDocument = gql`
     status
     no
     total
-    user {
+    customer {
       id
       name
       avatar
@@ -534,7 +535,6 @@ export const GetMenusDocument = gql`
         image
         price
         active
-        place_id
       }
     }
   }
@@ -626,6 +626,7 @@ export const GetEmployeesDocument = gql`
       phone
       avatar
       created_at
+      active
     }
     paginatorInfo {
       count

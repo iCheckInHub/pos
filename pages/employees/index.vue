@@ -1,40 +1,62 @@
 <template>
   <v-card>
     <v-card-text class="d-flex align-center justify-space-between">
-      <v-btn rounded="pill" color="secondary" prepend-icon="mdi-reload"
+      <v-btn
+        rounded="pill"
+        color="secondary"
+        prepend-icon="mdi-reload"
+        class="text-capitalize"
         >Refresh</v-btn
       >
       <v-spacer />
       <v-text-field
         append-inner-icon="mdi-magnify"
         label="Search"
-        single-line
         hide-details
+        variant="outlined"
+        color="secondary"
+        density="compact"
       />
     </v-card-text>
     <v-card-text class="d-flex">
-      <v-select
-        :items="places"
-        label="Places"
-        clearable
-        :loading="loadingPlaces"
-        hide-details
-        item-title="name"
-        item-value="id"
-        v-model="filters.place_id"
-      />
-
-      <v-combobox
-        :items="['Pending', 'Completed']"
-        label="Status"
-        clearable
-        hide-details
-      />
-      <v-text-field
-        label="Date"
-        hide-details
-        prepend-inner-icon="mdi-calendar-range"
-      />
+      <v-row dense>
+        <v-col>
+          <v-select
+            density="compact"
+            :items="places"
+            label="Places"
+            clearable
+            :loading="loadingPlaces"
+            hide-details
+            item-title="name"
+            item-value="id"
+            v-model="filters.place_id"
+            variant="outlined"
+            color="secondary"
+          />
+        </v-col>
+        <v-col>
+          <v-combobox
+            :items="['Pending', 'Completed']"
+            density="compact"
+            label="Status"
+            clearable
+            hide-details
+            variant="outlined"
+            color="secondary"
+          />
+        </v-col>
+        <v-col>
+          <v-text-field
+            density="compact"
+            label="Date"
+            hide-details
+            prepend-inner-icon="mdi-calendar-range"
+            variant="outlined"
+            color="secondary"
+          />
+        </v-col>
+      </v-row>
     </v-card-text>
     <v-card-item>
       <v-data-table
@@ -45,20 +67,23 @@
         multi-sort
         hide-default-footer
         @click:row="(event:any, {item}:any) => $router.push({name: 'employees-id', params: {id: item.value}})"
+        class="row-hover text-secondary"
       >
         <template #bottom></template>
         <template #item.name="{ item }">
-          <v-list-item
-            lines="two"
-            :prepend-avatar="item.raw.avatar"
-            class="px-0"
-          >
+          <v-list-item class="px-0 text-black">
+            <template #prepend>
+              <v-avatar :image="item.raw.avatar" size="32"> </v-avatar>
+            </template>
             <v-list-item-title>{{ item.raw.name }}</v-list-item-title>
             <v-list-item-subtitle>{{ item.raw.email }}</v-list-item-subtitle>
+            <v-list-item-subtitle v-if="!item.raw.active">
+              <span class="text-red-darken-2"> Inactive</span>
+            </v-list-item-subtitle>
           </v-list-item>
         </template>
         <template #item.phone="{ item }">
-          {{ mask.masked(item.raw.phone) }}
+          {{ !item.raw.phone ? '' : mask.masked(item.raw.phone) }}
         </template>
       </v-data-table>
     </v-card-item>

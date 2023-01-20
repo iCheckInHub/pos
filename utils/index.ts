@@ -23,10 +23,10 @@ export const useColorStatus = (
   type?: 'text' | 'bg'
 ): string => {
   const colors = {
-    pending: 'yellow',
-    confirmed: 'blue',
-    canceled: 'red',
-    completed: 'green',
+    pending: 'yellow-darken-2',
+    confirmed: 'light-blue-lighten-2',
+    canceled: 'red-darken-2',
+    completed: 'green-lighten-1',
   } as any;
 
   const color = colors[status] || 'default';

@@ -4,12 +4,6 @@ const config: CodegenConfig = {
   overwrite: true,
   schema: 'http://api.icheckin.test/graphql?schema=pos',
   documents: 'graphql/**/*.graphql',
-
-  // watch: true,
-  // watchConfig: {
-  //   usePolling: true,
-  //   interval: 5000,
-  // },
   generates: {
     './types/graphql.ts': {
       plugins: ['typescript', 'typescript-operations'],

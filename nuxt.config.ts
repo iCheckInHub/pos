@@ -5,6 +5,13 @@ export default defineNuxtConfig({
     pageTransition: { name: 'page', mode: 'out-in' },
     head: {
       title: 'iCheckin POS',
+      link: [
+        {
+          rel: 'stylesheet',
+          href: 'https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900',
+          crossorigin: '',
+        },
+      ],
     },
   },
 

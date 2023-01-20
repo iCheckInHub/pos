@@ -43,6 +43,7 @@ export default defineNuxtPlugin((nuxtApp) => {
         VCard: {
           rounded: 0,
           variant: 'flat',
+          color: 'transparent',
         },
         VSheet: {
           color: 'transparent',

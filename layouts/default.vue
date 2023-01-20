@@ -32,7 +32,7 @@
         ></v-list-item>
       </v-list>
     </v-navigation-drawer>
-    <v-app-bar flat extended>
+    <v-app-bar flat extended color="white">
       <template v-slot:prepend>
         <v-app-bar-nav-icon></v-app-bar-nav-icon>
       </template>
