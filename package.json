@@ -9,25 +9,25 @@
     "codegen": "graphql-codegen --config codegen.ts && nuxi prepare"
   },
   "dependencies": {
-    "@nuxtjs/apollo": "^5.0.0-alpha.5",
-    "@nuxtjs/google-fonts": "^2.0.0",
+    "@nuxtjs/apollo": "^5.0.0-alpha.6",
+    "@nuxtjs/google-fonts": "^3.0.0",
     "graphql": "^16.6.0",
-    "nuxt": "^3.0.0",
-    "vuetify": "^3.1.2"
+    "nuxt": "^3.3.1",
+    "vuetify": "3.1.11"
   },
   "devDependencies": {
     "@faker-js/faker": "^7.6.0",
-    "@graphql-codegen/cli": "2.16.4",
-    "@graphql-codegen/client-preset": "1.2.6",
-    "@graphql-codegen/typescript": "^2.8.7",
-    "@graphql-codegen/typescript-resolvers": "^2.7.12",
-    "@graphql-codegen/typescript-vue-apollo": "^3.3.6",
-    "@mdi/font": "^7.1.96",
-    "@vueuse/core": "^9.11.0",
-    "@vueuse/nuxt": "^9.11.0",
-    "@vueuse/router": "^9.11.0",
-    "maska": "^2.1.4",
-    "sass": "^1.57.1",
+    "@graphql-codegen/cli": "3.2.2",
+    "@graphql-codegen/client-preset": "2.1.1",
+    "@graphql-codegen/typescript": "^3.0.2",
+    "@graphql-codegen/typescript-resolvers": "^3.1.1",
+    "@graphql-codegen/typescript-vue-apollo": "^3.3.7",
+    "@mdi/font": "^7.2.96",
+    "@vueuse/core": "^9.13.0",
+    "@vueuse/nuxt": "^9.13.0",
+    "@vueuse/router": "^9.13.0",
+    "maska": "^2.1.7",
+    "sass": "^1.59.3",
     "ts-node": "^10.9.1"
   }
 }
