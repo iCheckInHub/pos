@@ -33,7 +33,7 @@ export const LoginDocument = gql`
  *   },
  * });
  */
-export function useLoginMutation(options: VueApolloComposable.UseMutationOptions<TLoginMutation, TLoginMutationVariables> | ReactiveFunction<VueApolloComposable.UseMutationOptions<TLoginMutation, TLoginMutationVariables>>) {
+export function useLoginMutation(options: VueApolloComposable.UseMutationOptions<TLoginMutation, TLoginMutationVariables> | ReactiveFunction<VueApolloComposable.UseMutationOptions<TLoginMutation, TLoginMutationVariables>> = {}) {
   return VueApolloComposable.useMutation<TLoginMutation, TLoginMutationVariables>(LoginDocument, options);
 }
 export type LoginMutationCompositionFunctionResult = VueApolloComposable.UseMutationReturn<TLoginMutation, TLoginMutationVariables>;
@@ -66,7 +66,7 @@ export const SaveMenuDocument = gql`
  *   },
  * });
  */
-export function useSaveMenuMutation(options: VueApolloComposable.UseMutationOptions<TSaveMenuMutation, TSaveMenuMutationVariables> | ReactiveFunction<VueApolloComposable.UseMutationOptions<TSaveMenuMutation, TSaveMenuMutationVariables>>) {
+export function useSaveMenuMutation(options: VueApolloComposable.UseMutationOptions<TSaveMenuMutation, TSaveMenuMutationVariables> | ReactiveFunction<VueApolloComposable.UseMutationOptions<TSaveMenuMutation, TSaveMenuMutationVariables>> = {}) {
   return VueApolloComposable.useMutation<TSaveMenuMutation, TSaveMenuMutationVariables>(SaveMenuDocument, options);
 }
 export type SaveMenuMutationCompositionFunctionResult = VueApolloComposable.UseMutationReturn<TSaveMenuMutation, TSaveMenuMutationVariables>;
@@ -95,7 +95,7 @@ export const SaveMenuServiceDocument = gql`
  *   },
  * });
  */
-export function useSaveMenuServiceMutation(options: VueApolloComposable.UseMutationOptions<TSaveMenuServiceMutation, TSaveMenuServiceMutationVariables> | ReactiveFunction<VueApolloComposable.UseMutationOptions<TSaveMenuServiceMutation, TSaveMenuServiceMutationVariables>>) {
+export function useSaveMenuServiceMutation(options: VueApolloComposable.UseMutationOptions<TSaveMenuServiceMutation, TSaveMenuServiceMutationVariables> | ReactiveFunction<VueApolloComposable.UseMutationOptions<TSaveMenuServiceMutation, TSaveMenuServiceMutationVariables>> = {}) {
   return VueApolloComposable.useMutation<TSaveMenuServiceMutation, TSaveMenuServiceMutationVariables>(SaveMenuServiceDocument, options);
 }
 export type SaveMenuServiceMutationCompositionFunctionResult = VueApolloComposable.UseMutationReturn<TSaveMenuServiceMutation, TSaveMenuServiceMutationVariables>;
@@ -124,7 +124,7 @@ export const SaveMenuServiceExtraDocument = gql`
  *   },
  * });
  */
-export function useSaveMenuServiceExtraMutation(options: VueApolloComposable.UseMutationOptions<TSaveMenuServiceExtraMutation, TSaveMenuServiceExtraMutationVariables> | ReactiveFunction<VueApolloComposable.UseMutationOptions<TSaveMenuServiceExtraMutation, TSaveMenuServiceExtraMutationVariables>>) {
+export function useSaveMenuServiceExtraMutation(options: VueApolloComposable.UseMutationOptions<TSaveMenuServiceExtraMutation, TSaveMenuServiceExtraMutationVariables> | ReactiveFunction<VueApolloComposable.UseMutationOptions<TSaveMenuServiceExtraMutation, TSaveMenuServiceExtraMutationVariables>> = {}) {
   return VueApolloComposable.useMutation<TSaveMenuServiceExtraMutation, TSaveMenuServiceExtraMutationVariables>(SaveMenuServiceExtraDocument, options);
 }
 export type SaveMenuServiceExtraMutationCompositionFunctionResult = VueApolloComposable.UseMutationReturn<TSaveMenuServiceExtraMutation, TSaveMenuServiceExtraMutationVariables>;
@@ -153,7 +153,7 @@ export const SaveMenuServiceExtraOptionDocument = gql`
  *   },
  * });
  */
-export function useSaveMenuServiceExtraOptionMutation(options: VueApolloComposable.UseMutationOptions<TSaveMenuServiceExtraOptionMutation, TSaveMenuServiceExtraOptionMutationVariables> | ReactiveFunction<VueApolloComposable.UseMutationOptions<TSaveMenuServiceExtraOptionMutation, TSaveMenuServiceExtraOptionMutationVariables>>) {
+export function useSaveMenuServiceExtraOptionMutation(options: VueApolloComposable.UseMutationOptions<TSaveMenuServiceExtraOptionMutation, TSaveMenuServiceExtraOptionMutationVariables> | ReactiveFunction<VueApolloComposable.UseMutationOptions<TSaveMenuServiceExtraOptionMutation, TSaveMenuServiceExtraOptionMutationVariables>> = {}) {
   return VueApolloComposable.useMutation<TSaveMenuServiceExtraOptionMutation, TSaveMenuServiceExtraOptionMutationVariables>(SaveMenuServiceExtraOptionDocument, options);
 }
 export type SaveMenuServiceExtraOptionMutationCompositionFunctionResult = VueApolloComposable.UseMutationReturn<TSaveMenuServiceExtraOptionMutation, TSaveMenuServiceExtraOptionMutationVariables>;
@@ -182,7 +182,7 @@ export const DeleteMenuServiceExtraDocument = gql`
  *   },
  * });
  */
-export function useDeleteMenuServiceExtraMutation(options: VueApolloComposable.UseMutationOptions<TDeleteMenuServiceExtraMutation, TDeleteMenuServiceExtraMutationVariables> | ReactiveFunction<VueApolloComposable.UseMutationOptions<TDeleteMenuServiceExtraMutation, TDeleteMenuServiceExtraMutationVariables>>) {
+export function useDeleteMenuServiceExtraMutation(options: VueApolloComposable.UseMutationOptions<TDeleteMenuServiceExtraMutation, TDeleteMenuServiceExtraMutationVariables> | ReactiveFunction<VueApolloComposable.UseMutationOptions<TDeleteMenuServiceExtraMutation, TDeleteMenuServiceExtraMutationVariables>> = {}) {
   return VueApolloComposable.useMutation<TDeleteMenuServiceExtraMutation, TDeleteMenuServiceExtraMutationVariables>(DeleteMenuServiceExtraDocument, options);
 }
 export type DeleteMenuServiceExtraMutationCompositionFunctionResult = VueApolloComposable.UseMutationReturn<TDeleteMenuServiceExtraMutation, TDeleteMenuServiceExtraMutationVariables>;
@@ -211,39 +211,73 @@ export const DeleteMenuServiceExtraOptionDocument = gql`
  *   },
  * });
  */
-export function useDeleteMenuServiceExtraOptionMutation(options: VueApolloComposable.UseMutationOptions<TDeleteMenuServiceExtraOptionMutation, TDeleteMenuServiceExtraOptionMutationVariables> | ReactiveFunction<VueApolloComposable.UseMutationOptions<TDeleteMenuServiceExtraOptionMutation, TDeleteMenuServiceExtraOptionMutationVariables>>) {
+export function useDeleteMenuServiceExtraOptionMutation(options: VueApolloComposable.UseMutationOptions<TDeleteMenuServiceExtraOptionMutation, TDeleteMenuServiceExtraOptionMutationVariables> | ReactiveFunction<VueApolloComposable.UseMutationOptions<TDeleteMenuServiceExtraOptionMutation, TDeleteMenuServiceExtraOptionMutationVariables>> = {}) {
   return VueApolloComposable.useMutation<TDeleteMenuServiceExtraOptionMutation, TDeleteMenuServiceExtraOptionMutationVariables>(DeleteMenuServiceExtraOptionDocument, options);
 }
 export type DeleteMenuServiceExtraOptionMutationCompositionFunctionResult = VueApolloComposable.UseMutationReturn<TDeleteMenuServiceExtraOptionMutation, TDeleteMenuServiceExtraOptionMutationVariables>;
-export const SaveEmployeeDocument = gql`
-    mutation saveEmployee($input: EmployeeInput!) {
-  saveEmployee(input: $input) {
+export const SaveUserDocument = gql`
+    mutation saveUser($input: UserInput!) {
+  saveUser(input: $input) {
     id
   }
 }
     `;
 
 /**
- * __useSaveEmployeeMutation__
+ * __useSaveUserMutation__
  *
- * To run a mutation, you first call `useSaveEmployeeMutation` within a Vue component and pass it any options that fit your needs.
- * When your component renders, `useSaveEmployeeMutation` returns an object that includes:
+ * To run a mutation, you first call `useSaveUserMutation` within a Vue component and pass it any options that fit your needs.
+ * When your component renders, `useSaveUserMutation` returns an object that includes:
  * - A mutate function that you can call at any time to execute the mutation
  * - Several other properties: https://v4.apollo.vuejs.org/api/use-mutation.html#return
  *
  * @param options that will be passed into the mutation, supported options are listed on: https://v4.apollo.vuejs.org/guide-composable/mutation.html#options;
  *
  * @example
- * const { mutate, loading, error, onDone } = useSaveEmployeeMutation({
+ * const { mutate, loading, error, onDone } = useSaveUserMutation({
  *   variables: {
  *     input: // value for 'input'
  *   },
  * });
  */
-export function useSaveEmployeeMutation(options: VueApolloComposable.UseMutationOptions<TSaveEmployeeMutation, TSaveEmployeeMutationVariables> | ReactiveFunction<VueApolloComposable.UseMutationOptions<TSaveEmployeeMutation, TSaveEmployeeMutationVariables>>) {
-  return VueApolloComposable.useMutation<TSaveEmployeeMutation, TSaveEmployeeMutationVariables>(SaveEmployeeDocument, options);
+export function useSaveUserMutation(options: VueApolloComposable.UseMutationOptions<TSaveUserMutation, TSaveUserMutationVariables> | ReactiveFunction<VueApolloComposable.UseMutationOptions<TSaveUserMutation, TSaveUserMutationVariables>> = {}) {
+  return VueApolloComposable.useMutation<TSaveUserMutation, TSaveUserMutationVariables>(SaveUserDocument, options);
 }
-export type SaveEmployeeMutationCompositionFunctionResult = VueApolloComposable.UseMutationReturn<TSaveEmployeeMutation, TSaveEmployeeMutationVariables>;
+export type SaveUserMutationCompositionFunctionResult = VueApolloComposable.UseMutationReturn<TSaveUserMutation, TSaveUserMutationVariables>;
+export const SaveOrderDocument = gql`
+    mutation saveOrder($input: OrderInput!) {
+  saveOrder(input: $input) {
+    id
+    scheduled_at
+    employee {
+      id
+      name
+    }
+  }
+}
+    `;
+
+/**
+ * __useSaveOrderMutation__
+ *
+ * To run a mutation, you first call `useSaveOrderMutation` within a Vue component and pass it any options that fit your needs.
+ * When your component renders, `useSaveOrderMutation` returns an object that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - Several other properties: https://v4.apollo.vuejs.org/api/use-mutation.html#return
+ *
+ * @param options that will be passed into the mutation, supported options are listed on: https://v4.apollo.vuejs.org/guide-composable/mutation.html#options;
+ *
+ * @example
+ * const { mutate, loading, error, onDone } = useSaveOrderMutation({
+ *   variables: {
+ *     input: // value for 'input'
+ *   },
+ * });
+ */
+export function useSaveOrderMutation(options: VueApolloComposable.UseMutationOptions<TSaveOrderMutation, TSaveOrderMutationVariables> | ReactiveFunction<VueApolloComposable.UseMutationOptions<TSaveOrderMutation, TSaveOrderMutationVariables>> = {}) {
+  return VueApolloComposable.useMutation<TSaveOrderMutation, TSaveOrderMutationVariables>(SaveOrderDocument, options);
+}
+export type SaveOrderMutationCompositionFunctionResult = VueApolloComposable.UseMutationReturn<TSaveOrderMutation, TSaveOrderMutationVariables>;
 export const GetProfileDocument = gql`
     query getProfile {
   me {
@@ -274,88 +308,39 @@ export function useGetProfileLazyQuery(options: VueApolloComposable.UseQueryOpti
   return VueApolloComposable.useLazyQuery<TGetProfileQuery, TGetProfileQueryVariables>(GetProfileDocument, {}, options);
 }
 export type GetProfileQueryCompositionFunctionResult = VueApolloComposable.UseQueryReturn<TGetProfileQuery, TGetProfileQueryVariables>;
-export const GetPlaceListDocument = gql`
-    query getPlaceList {
-  placeList {
+export const GetStoresListDocument = gql`
+    query getStoresList {
+  getStoresList {
     id
     name
     address
+    image
   }
 }
     `;
 
 /**
- * __useGetPlaceListQuery__
+ * __useGetStoresListQuery__
  *
- * To run a query within a Vue component, call `useGetPlaceListQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetPlaceListQuery` returns an object from Apollo Client that contains result, loading and error properties
+ * To run a query within a Vue component, call `useGetStoresListQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetStoresListQuery` returns an object from Apollo Client that contains result, loading and error properties
  * you can use to render your UI.
  *
  * @param options that will be passed into the query, supported options are listed on: https://v4.apollo.vuejs.org/guide-composable/query.html#options;
  *
  * @example
- * const { result, loading, error } = useGetPlaceListQuery();
+ * const { result, loading, error } = useGetStoresListQuery();
  */
-export function useGetPlaceListQuery(options: VueApolloComposable.UseQueryOptions<TGetPlaceListQuery, TGetPlaceListQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<TGetPlaceListQuery, TGetPlaceListQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<TGetPlaceListQuery, TGetPlaceListQueryVariables>> = {}) {
-  return VueApolloComposable.useQuery<TGetPlaceListQuery, TGetPlaceListQueryVariables>(GetPlaceListDocument, {}, options);
+export function useGetStoresListQuery(options: VueApolloComposable.UseQueryOptions<TGetStoresListQuery, TGetStoresListQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<TGetStoresListQuery, TGetStoresListQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<TGetStoresListQuery, TGetStoresListQueryVariables>> = {}) {
+  return VueApolloComposable.useQuery<TGetStoresListQuery, TGetStoresListQueryVariables>(GetStoresListDocument, {}, options);
 }
-export function useGetPlaceListLazyQuery(options: VueApolloComposable.UseQueryOptions<TGetPlaceListQuery, TGetPlaceListQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<TGetPlaceListQuery, TGetPlaceListQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<TGetPlaceListQuery, TGetPlaceListQueryVariables>> = {}) {
-  return VueApolloComposable.useLazyQuery<TGetPlaceListQuery, TGetPlaceListQueryVariables>(GetPlaceListDocument, {}, options);
+export function useGetStoresListLazyQuery(options: VueApolloComposable.UseQueryOptions<TGetStoresListQuery, TGetStoresListQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<TGetStoresListQuery, TGetStoresListQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<TGetStoresListQuery, TGetStoresListQueryVariables>> = {}) {
+  return VueApolloComposable.useLazyQuery<TGetStoresListQuery, TGetStoresListQueryVariables>(GetStoresListDocument, {}, options);
 }
-export type GetPlaceListQueryCompositionFunctionResult = VueApolloComposable.UseQueryReturn<TGetPlaceListQuery, TGetPlaceListQueryVariables>;
-export const GetPlacesDocument = gql`
-    query getPlaces($first: Int, $page: Int) {
-  places(first: $first, page: $page) {
-    data {
-      id
-      name
-      description
-      phone
-      image
-      cover
-      address
-      hours
-    }
-    paginatorInfo {
-      currentPage
-      lastPage
-      perPage
-      total
-      hasMorePages
-      count
-      firstItem
-      lastItem
-    }
-  }
-}
-    `;
-
-/**
- * __useGetPlacesQuery__
- *
- * To run a query within a Vue component, call `useGetPlacesQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetPlacesQuery` returns an object from Apollo Client that contains result, loading and error properties
- * you can use to render your UI.
- *
- * @param variables that will be passed into the query
- * @param options that will be passed into the query, supported options are listed on: https://v4.apollo.vuejs.org/guide-composable/query.html#options;
- *
- * @example
- * const { result, loading, error } = useGetPlacesQuery({
- *   first: // value for 'first'
- *   page: // value for 'page'
- * });
- */
-export function useGetPlacesQuery(variables: TGetPlacesQueryVariables | VueCompositionApi.Ref<TGetPlacesQueryVariables> | ReactiveFunction<TGetPlacesQueryVariables> = {}, options: VueApolloComposable.UseQueryOptions<TGetPlacesQuery, TGetPlacesQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<TGetPlacesQuery, TGetPlacesQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<TGetPlacesQuery, TGetPlacesQueryVariables>> = {}) {
-  return VueApolloComposable.useQuery<TGetPlacesQuery, TGetPlacesQueryVariables>(GetPlacesDocument, variables, options);
-}
-export function useGetPlacesLazyQuery(variables: TGetPlacesQueryVariables | VueCompositionApi.Ref<TGetPlacesQueryVariables> | ReactiveFunction<TGetPlacesQueryVariables> = {}, options: VueApolloComposable.UseQueryOptions<TGetPlacesQuery, TGetPlacesQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<TGetPlacesQuery, TGetPlacesQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<TGetPlacesQuery, TGetPlacesQueryVariables>> = {}) {
-  return VueApolloComposable.useLazyQuery<TGetPlacesQuery, TGetPlacesQueryVariables>(GetPlacesDocument, variables, options);
-}
-export type GetPlacesQueryCompositionFunctionResult = VueApolloComposable.UseQueryReturn<TGetPlacesQuery, TGetPlacesQueryVariables>;
-export const GetPlaceDocument = gql`
-    query getPlace($id: ID!) {
-  place(id: $id) {
+export type GetStoresListQueryCompositionFunctionResult = VueApolloComposable.UseQueryReturn<TGetStoresListQuery, TGetStoresListQueryVariables>;
+export const GetStoreDocument = gql`
+    query getStore($id: ID!) {
+  getStore(id: $id) {
     id
     name
     description
@@ -369,31 +354,31 @@ export const GetPlaceDocument = gql`
     `;
 
 /**
- * __useGetPlaceQuery__
+ * __useGetStoreQuery__
  *
- * To run a query within a Vue component, call `useGetPlaceQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetPlaceQuery` returns an object from Apollo Client that contains result, loading and error properties
+ * To run a query within a Vue component, call `useGetStoreQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetStoreQuery` returns an object from Apollo Client that contains result, loading and error properties
  * you can use to render your UI.
  *
  * @param variables that will be passed into the query
  * @param options that will be passed into the query, supported options are listed on: https://v4.apollo.vuejs.org/guide-composable/query.html#options;
  *
  * @example
- * const { result, loading, error } = useGetPlaceQuery({
+ * const { result, loading, error } = useGetStoreQuery({
  *   id: // value for 'id'
  * });
  */
-export function useGetPlaceQuery(variables: TGetPlaceQueryVariables | VueCompositionApi.Ref<TGetPlaceQueryVariables> | ReactiveFunction<TGetPlaceQueryVariables>, options: VueApolloComposable.UseQueryOptions<TGetPlaceQuery, TGetPlaceQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<TGetPlaceQuery, TGetPlaceQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<TGetPlaceQuery, TGetPlaceQueryVariables>> = {}) {
-  return VueApolloComposable.useQuery<TGetPlaceQuery, TGetPlaceQueryVariables>(GetPlaceDocument, variables, options);
+export function useGetStoreQuery(variables: TGetStoreQueryVariables | VueCompositionApi.Ref<TGetStoreQueryVariables> | ReactiveFunction<TGetStoreQueryVariables>, options: VueApolloComposable.UseQueryOptions<TGetStoreQuery, TGetStoreQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<TGetStoreQuery, TGetStoreQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<TGetStoreQuery, TGetStoreQueryVariables>> = {}) {
+  return VueApolloComposable.useQuery<TGetStoreQuery, TGetStoreQueryVariables>(GetStoreDocument, variables, options);
 }
-export function useGetPlaceLazyQuery(variables: TGetPlaceQueryVariables | VueCompositionApi.Ref<TGetPlaceQueryVariables> | ReactiveFunction<TGetPlaceQueryVariables>, options: VueApolloComposable.UseQueryOptions<TGetPlaceQuery, TGetPlaceQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<TGetPlaceQuery, TGetPlaceQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<TGetPlaceQuery, TGetPlaceQueryVariables>> = {}) {
-  return VueApolloComposable.useLazyQuery<TGetPlaceQuery, TGetPlaceQueryVariables>(GetPlaceDocument, variables, options);
+export function useGetStoreLazyQuery(variables: TGetStoreQueryVariables | VueCompositionApi.Ref<TGetStoreQueryVariables> | ReactiveFunction<TGetStoreQueryVariables>, options: VueApolloComposable.UseQueryOptions<TGetStoreQuery, TGetStoreQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<TGetStoreQuery, TGetStoreQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<TGetStoreQuery, TGetStoreQueryVariables>> = {}) {
+  return VueApolloComposable.useLazyQuery<TGetStoreQuery, TGetStoreQueryVariables>(GetStoreDocument, variables, options);
 }
-export type GetPlaceQueryCompositionFunctionResult = VueApolloComposable.UseQueryReturn<TGetPlaceQuery, TGetPlaceQueryVariables>;
+export type GetStoreQueryCompositionFunctionResult = VueApolloComposable.UseQueryReturn<TGetStoreQuery, TGetStoreQueryVariables>;
 export const GetOrdersDocument = gql`
-    query getOrders($search: String, $place_id: ID, $status: OrderStatus, $page: Int, $orderBy: [QueryOrdersOrderByOrderByClause!]) {
-  orders(
-    place_id: $place_id
+    query getOrders($search: String, $store_id: ID!, $status: OrderStatus, $page: Int, $orderBy: [QueryGetOrdersOrderByOrderByClause!]) {
+  getOrders(
+    store_id: $store_id
     page: $page
     orderBy: $orderBy
     status: $status
@@ -405,7 +390,7 @@ export const GetOrdersDocument = gql`
       status
       total
       created_at
-      customer {
+      user {
         id
         name
         avatar
@@ -439,33 +424,34 @@ export const GetOrdersDocument = gql`
  * @example
  * const { result, loading, error } = useGetOrdersQuery({
  *   search: // value for 'search'
- *   place_id: // value for 'place_id'
+ *   store_id: // value for 'store_id'
  *   status: // value for 'status'
  *   page: // value for 'page'
  *   orderBy: // value for 'orderBy'
  * });
  */
-export function useGetOrdersQuery(variables: TGetOrdersQueryVariables | VueCompositionApi.Ref<TGetOrdersQueryVariables> | ReactiveFunction<TGetOrdersQueryVariables> = {}, options: VueApolloComposable.UseQueryOptions<TGetOrdersQuery, TGetOrdersQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<TGetOrdersQuery, TGetOrdersQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<TGetOrdersQuery, TGetOrdersQueryVariables>> = {}) {
+export function useGetOrdersQuery(variables: TGetOrdersQueryVariables | VueCompositionApi.Ref<TGetOrdersQueryVariables> | ReactiveFunction<TGetOrdersQueryVariables>, options: VueApolloComposable.UseQueryOptions<TGetOrdersQuery, TGetOrdersQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<TGetOrdersQuery, TGetOrdersQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<TGetOrdersQuery, TGetOrdersQueryVariables>> = {}) {
   return VueApolloComposable.useQuery<TGetOrdersQuery, TGetOrdersQueryVariables>(GetOrdersDocument, variables, options);
 }
-export function useGetOrdersLazyQuery(variables: TGetOrdersQueryVariables | VueCompositionApi.Ref<TGetOrdersQueryVariables> | ReactiveFunction<TGetOrdersQueryVariables> = {}, options: VueApolloComposable.UseQueryOptions<TGetOrdersQuery, TGetOrdersQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<TGetOrdersQuery, TGetOrdersQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<TGetOrdersQuery, TGetOrdersQueryVariables>> = {}) {
+export function useGetOrdersLazyQuery(variables: TGetOrdersQueryVariables | VueCompositionApi.Ref<TGetOrdersQueryVariables> | ReactiveFunction<TGetOrdersQueryVariables>, options: VueApolloComposable.UseQueryOptions<TGetOrdersQuery, TGetOrdersQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<TGetOrdersQuery, TGetOrdersQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<TGetOrdersQuery, TGetOrdersQueryVariables>> = {}) {
   return VueApolloComposable.useLazyQuery<TGetOrdersQuery, TGetOrdersQueryVariables>(GetOrdersDocument, variables, options);
 }
 export type GetOrdersQueryCompositionFunctionResult = VueApolloComposable.UseQueryReturn<TGetOrdersQuery, TGetOrdersQueryVariables>;
 export const GetOrderDocument = gql`
-    query getOrder($id: ID!) {
-  order(id: $id) {
+    query getOrder($id: ID!, $store_id: ID!) {
+  getOrder(id: $id, store_id: $store_id) {
     id
     status
     no
     total
-    customer {
+    duration
+    user {
       id
       name
       avatar
       phone
     }
-    place {
+    store {
       id
       name
     }
@@ -504,6 +490,7 @@ export const GetOrderDocument = gql`
  * @example
  * const { result, loading, error } = useGetOrderQuery({
  *   id: // value for 'id'
+ *   store_id: // value for 'store_id'
  * });
  */
 export function useGetOrderQuery(variables: TGetOrderQueryVariables | VueCompositionApi.Ref<TGetOrderQueryVariables> | ReactiveFunction<TGetOrderQueryVariables>, options: VueApolloComposable.UseQueryOptions<TGetOrderQuery, TGetOrderQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<TGetOrderQuery, TGetOrderQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<TGetOrderQuery, TGetOrderQueryVariables>> = {}) {
@@ -514,20 +501,17 @@ export function useGetOrderLazyQuery(variables: TGetOrderQueryVariables | VueCom
 }
 export type GetOrderQueryCompositionFunctionResult = VueApolloComposable.UseQueryReturn<TGetOrderQuery, TGetOrderQueryVariables>;
 export const GetMenusDocument = gql`
-    query getMenus($place_id: ID!) {
-  menus(place_id: $place_id) {
+    query getMenus($store_id: ID!) {
+  getMenus(store_id: $store_id) {
     id
     name
     image
-    description
     active
     items {
       id
       name
       image
-      description
       active
-      parent_id
       services {
         id
         name
@@ -552,7 +536,7 @@ export const GetMenusDocument = gql`
  *
  * @example
  * const { result, loading, error } = useGetMenusQuery({
- *   place_id: // value for 'place_id'
+ *   store_id: // value for 'store_id'
  * });
  */
 export function useGetMenusQuery(variables: TGetMenusQueryVariables | VueCompositionApi.Ref<TGetMenusQueryVariables> | ReactiveFunction<TGetMenusQueryVariables>, options: VueApolloComposable.UseQueryOptions<TGetMenusQuery, TGetMenusQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<TGetMenusQuery, TGetMenusQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<TGetMenusQuery, TGetMenusQueryVariables>> = {}) {
@@ -563,8 +547,8 @@ export function useGetMenusLazyQuery(variables: TGetMenusQueryVariables | VueCom
 }
 export type GetMenusQueryCompositionFunctionResult = VueApolloComposable.UseQueryReturn<TGetMenusQuery, TGetMenusQueryVariables>;
 export const GetServiceDocument = gql`
-    query getService($id: ID!) {
-  service(id: $id) {
+    query getService($id: ID!, $store_id: ID!) {
+  getService(id: $id, store_id: $store_id) {
     id
     name
     image
@@ -573,12 +557,12 @@ export const GetServiceDocument = gql`
     description
     top
     active
-    place_id
+    store_id
+    menu_id
     extras {
       id
       multiple
       name
-      description
       active
       options {
         id
@@ -587,6 +571,7 @@ export const GetServiceDocument = gql`
         duration
         description
         active
+        default
       }
     }
   }
@@ -606,6 +591,7 @@ export const GetServiceDocument = gql`
  * @example
  * const { result, loading, error } = useGetServiceQuery({
  *   id: // value for 'id'
+ *   store_id: // value for 'store_id'
  * });
  */
 export function useGetServiceQuery(variables: TGetServiceQueryVariables | VueCompositionApi.Ref<TGetServiceQueryVariables> | ReactiveFunction<TGetServiceQueryVariables>, options: VueApolloComposable.UseQueryOptions<TGetServiceQuery, TGetServiceQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<TGetServiceQuery, TGetServiceQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<TGetServiceQuery, TGetServiceQueryVariables>> = {}) {
@@ -615,9 +601,9 @@ export function useGetServiceLazyQuery(variables: TGetServiceQueryVariables | Vu
   return VueApolloComposable.useLazyQuery<TGetServiceQuery, TGetServiceQueryVariables>(GetServiceDocument, variables, options);
 }
 export type GetServiceQueryCompositionFunctionResult = VueApolloComposable.UseQueryReturn<TGetServiceQuery, TGetServiceQueryVariables>;
-export const GetEmployeesDocument = gql`
-    query getEmployees($place_id: ID, $search: String) {
-  employees(place_id: $place_id, search: $search) {
+export const GetUsersDocument = gql`
+    query getUsers($store_id: ID!, $search: String, $page: Int) {
+  getUsers(store_id: $store_id, search: $search, page: $page) {
     data {
       id
       name
@@ -647,43 +633,43 @@ export const GetEmployeesDocument = gql`
     `;
 
 /**
- * __useGetEmployeesQuery__
+ * __useGetUsersQuery__
  *
- * To run a query within a Vue component, call `useGetEmployeesQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetEmployeesQuery` returns an object from Apollo Client that contains result, loading and error properties
+ * To run a query within a Vue component, call `useGetUsersQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetUsersQuery` returns an object from Apollo Client that contains result, loading and error properties
  * you can use to render your UI.
  *
  * @param variables that will be passed into the query
  * @param options that will be passed into the query, supported options are listed on: https://v4.apollo.vuejs.org/guide-composable/query.html#options;
  *
  * @example
- * const { result, loading, error } = useGetEmployeesQuery({
- *   place_id: // value for 'place_id'
+ * const { result, loading, error } = useGetUsersQuery({
+ *   store_id: // value for 'store_id'
  *   search: // value for 'search'
+ *   page: // value for 'page'
  * });
  */
-export function useGetEmployeesQuery(variables: TGetEmployeesQueryVariables | VueCompositionApi.Ref<TGetEmployeesQueryVariables> | ReactiveFunction<TGetEmployeesQueryVariables> = {}, options: VueApolloComposable.UseQueryOptions<TGetEmployeesQuery, TGetEmployeesQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<TGetEmployeesQuery, TGetEmployeesQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<TGetEmployeesQuery, TGetEmployeesQueryVariables>> = {}) {
-  return VueApolloComposable.useQuery<TGetEmployeesQuery, TGetEmployeesQueryVariables>(GetEmployeesDocument, variables, options);
+export function useGetUsersQuery(variables: TGetUsersQueryVariables | VueCompositionApi.Ref<TGetUsersQueryVariables> | ReactiveFunction<TGetUsersQueryVariables>, options: VueApolloComposable.UseQueryOptions<TGetUsersQuery, TGetUsersQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<TGetUsersQuery, TGetUsersQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<TGetUsersQuery, TGetUsersQueryVariables>> = {}) {
+  return VueApolloComposable.useQuery<TGetUsersQuery, TGetUsersQueryVariables>(GetUsersDocument, variables, options);
 }
-export function useGetEmployeesLazyQuery(variables: TGetEmployeesQueryVariables | VueCompositionApi.Ref<TGetEmployeesQueryVariables> | ReactiveFunction<TGetEmployeesQueryVariables> = {}, options: VueApolloComposable.UseQueryOptions<TGetEmployeesQuery, TGetEmployeesQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<TGetEmployeesQuery, TGetEmployeesQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<TGetEmployeesQuery, TGetEmployeesQueryVariables>> = {}) {
-  return VueApolloComposable.useLazyQuery<TGetEmployeesQuery, TGetEmployeesQueryVariables>(GetEmployeesDocument, variables, options);
+export function useGetUsersLazyQuery(variables: TGetUsersQueryVariables | VueCompositionApi.Ref<TGetUsersQueryVariables> | ReactiveFunction<TGetUsersQueryVariables>, options: VueApolloComposable.UseQueryOptions<TGetUsersQuery, TGetUsersQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<TGetUsersQuery, TGetUsersQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<TGetUsersQuery, TGetUsersQueryVariables>> = {}) {
+  return VueApolloComposable.useLazyQuery<TGetUsersQuery, TGetUsersQueryVariables>(GetUsersDocument, variables, options);
 }
-export type GetEmployeesQueryCompositionFunctionResult = VueApolloComposable.UseQueryReturn<TGetEmployeesQuery, TGetEmployeesQueryVariables>;
-export const GetEmployeeDocument = gql`
-    query getEmployee($id: ID!) {
-  employee(id: $id) {
+export type GetUsersQueryCompositionFunctionResult = VueApolloComposable.UseQueryReturn<TGetUsersQuery, TGetUsersQueryVariables>;
+export const GetUserDocument = gql`
+    query getUser($id: ID!) {
+  getUser(id: $id) {
     id
     name
     email
     phone
     avatar
     birthday
-    address
     gender
     active
-    placeIds
+    storeIds
     created_at
-    places {
+    stores {
       id
       name
       address
@@ -697,24 +683,97 @@ export const GetEmployeeDocument = gql`
     `;
 
 /**
- * __useGetEmployeeQuery__
+ * __useGetUserQuery__
  *
- * To run a query within a Vue component, call `useGetEmployeeQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetEmployeeQuery` returns an object from Apollo Client that contains result, loading and error properties
+ * To run a query within a Vue component, call `useGetUserQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetUserQuery` returns an object from Apollo Client that contains result, loading and error properties
  * you can use to render your UI.
  *
  * @param variables that will be passed into the query
  * @param options that will be passed into the query, supported options are listed on: https://v4.apollo.vuejs.org/guide-composable/query.html#options;
  *
  * @example
- * const { result, loading, error } = useGetEmployeeQuery({
+ * const { result, loading, error } = useGetUserQuery({
  *   id: // value for 'id'
  * });
  */
-export function useGetEmployeeQuery(variables: TGetEmployeeQueryVariables | VueCompositionApi.Ref<TGetEmployeeQueryVariables> | ReactiveFunction<TGetEmployeeQueryVariables>, options: VueApolloComposable.UseQueryOptions<TGetEmployeeQuery, TGetEmployeeQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<TGetEmployeeQuery, TGetEmployeeQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<TGetEmployeeQuery, TGetEmployeeQueryVariables>> = {}) {
-  return VueApolloComposable.useQuery<TGetEmployeeQuery, TGetEmployeeQueryVariables>(GetEmployeeDocument, variables, options);
+export function useGetUserQuery(variables: TGetUserQueryVariables | VueCompositionApi.Ref<TGetUserQueryVariables> | ReactiveFunction<TGetUserQueryVariables>, options: VueApolloComposable.UseQueryOptions<TGetUserQuery, TGetUserQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<TGetUserQuery, TGetUserQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<TGetUserQuery, TGetUserQueryVariables>> = {}) {
+  return VueApolloComposable.useQuery<TGetUserQuery, TGetUserQueryVariables>(GetUserDocument, variables, options);
 }
-export function useGetEmployeeLazyQuery(variables: TGetEmployeeQueryVariables | VueCompositionApi.Ref<TGetEmployeeQueryVariables> | ReactiveFunction<TGetEmployeeQueryVariables>, options: VueApolloComposable.UseQueryOptions<TGetEmployeeQuery, TGetEmployeeQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<TGetEmployeeQuery, TGetEmployeeQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<TGetEmployeeQuery, TGetEmployeeQueryVariables>> = {}) {
-  return VueApolloComposable.useLazyQuery<TGetEmployeeQuery, TGetEmployeeQueryVariables>(GetEmployeeDocument, variables, options);
+export function useGetUserLazyQuery(variables: TGetUserQueryVariables | VueCompositionApi.Ref<TGetUserQueryVariables> | ReactiveFunction<TGetUserQueryVariables>, options: VueApolloComposable.UseQueryOptions<TGetUserQuery, TGetUserQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<TGetUserQuery, TGetUserQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<TGetUserQuery, TGetUserQueryVariables>> = {}) {
+  return VueApolloComposable.useLazyQuery<TGetUserQuery, TGetUserQueryVariables>(GetUserDocument, variables, options);
 }
-export type GetEmployeeQueryCompositionFunctionResult = VueApolloComposable.UseQueryReturn<TGetEmployeeQuery, TGetEmployeeQueryVariables>;
+export type GetUserQueryCompositionFunctionResult = VueApolloComposable.UseQueryReturn<TGetUserQuery, TGetUserQueryVariables>;
+export const GetUsersListDocument = gql`
+    query getUsersList($store_id: ID!) {
+  getUsersList(store_id: $store_id) {
+    id
+    name
+  }
+}
+    `;
+
+/**
+ * __useGetUsersListQuery__
+ *
+ * To run a query within a Vue component, call `useGetUsersListQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetUsersListQuery` returns an object from Apollo Client that contains result, loading and error properties
+ * you can use to render your UI.
+ *
+ * @param variables that will be passed into the query
+ * @param options that will be passed into the query, supported options are listed on: https://v4.apollo.vuejs.org/guide-composable/query.html#options;
+ *
+ * @example
+ * const { result, loading, error } = useGetUsersListQuery({
+ *   store_id: // value for 'store_id'
+ * });
+ */
+export function useGetUsersListQuery(variables: TGetUsersListQueryVariables | VueCompositionApi.Ref<TGetUsersListQueryVariables> | ReactiveFunction<TGetUsersListQueryVariables>, options: VueApolloComposable.UseQueryOptions<TGetUsersListQuery, TGetUsersListQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<TGetUsersListQuery, TGetUsersListQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<TGetUsersListQuery, TGetUsersListQueryVariables>> = {}) {
+  return VueApolloComposable.useQuery<TGetUsersListQuery, TGetUsersListQueryVariables>(GetUsersListDocument, variables, options);
+}
+export function useGetUsersListLazyQuery(variables: TGetUsersListQueryVariables | VueCompositionApi.Ref<TGetUsersListQueryVariables> | ReactiveFunction<TGetUsersListQueryVariables>, options: VueApolloComposable.UseQueryOptions<TGetUsersListQuery, TGetUsersListQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<TGetUsersListQuery, TGetUsersListQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<TGetUsersListQuery, TGetUsersListQueryVariables>> = {}) {
+  return VueApolloComposable.useLazyQuery<TGetUsersListQuery, TGetUsersListQueryVariables>(GetUsersListDocument, variables, options);
+}
+export type GetUsersListQueryCompositionFunctionResult = VueApolloComposable.UseQueryReturn<TGetUsersListQuery, TGetUsersListQueryVariables>;
+export const GetOrdersListDocument = gql`
+    query getOrdersList($store_id: ID!, $scheduled_at: Date!, $status: OrderStatus) {
+  getOrdersList(store_id: $store_id, scheduled_at: $scheduled_at, status: $status) {
+    id
+    no
+    status
+    start: scheduled_at
+    end: ended_at
+    duration
+    resourceId: user_id
+    user {
+      id
+      name
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetOrdersListQuery__
+ *
+ * To run a query within a Vue component, call `useGetOrdersListQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetOrdersListQuery` returns an object from Apollo Client that contains result, loading and error properties
+ * you can use to render your UI.
+ *
+ * @param variables that will be passed into the query
+ * @param options that will be passed into the query, supported options are listed on: https://v4.apollo.vuejs.org/guide-composable/query.html#options;
+ *
+ * @example
+ * const { result, loading, error } = useGetOrdersListQuery({
+ *   store_id: // value for 'store_id'
+ *   scheduled_at: // value for 'scheduled_at'
+ *   status: // value for 'status'
+ * });
+ */
+export function useGetOrdersListQuery(variables: TGetOrdersListQueryVariables | VueCompositionApi.Ref<TGetOrdersListQueryVariables> | ReactiveFunction<TGetOrdersListQueryVariables>, options: VueApolloComposable.UseQueryOptions<TGetOrdersListQuery, TGetOrdersListQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<TGetOrdersListQuery, TGetOrdersListQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<TGetOrdersListQuery, TGetOrdersListQueryVariables>> = {}) {
+  return VueApolloComposable.useQuery<TGetOrdersListQuery, TGetOrdersListQueryVariables>(GetOrdersListDocument, variables, options);
+}
+export function useGetOrdersListLazyQuery(variables: TGetOrdersListQueryVariables | VueCompositionApi.Ref<TGetOrdersListQueryVariables> | ReactiveFunction<TGetOrdersListQueryVariables>, options: VueApolloComposable.UseQueryOptions<TGetOrdersListQuery, TGetOrdersListQueryVariables> | VueCompositionApi.Ref<VueApolloComposable.UseQueryOptions<TGetOrdersListQuery, TGetOrdersListQueryVariables>> | ReactiveFunction<VueApolloComposable.UseQueryOptions<TGetOrdersListQuery, TGetOrdersListQueryVariables>> = {}) {
+  return VueApolloComposable.useLazyQuery<TGetOrdersListQuery, TGetOrdersListQueryVariables>(GetOrdersListDocument, variables, options);
+}
+export type GetOrdersListQueryCompositionFunctionResult = VueApolloComposable.UseQueryReturn<TGetOrdersListQuery, TGetOrdersListQueryVariables>;

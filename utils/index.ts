@@ -1,9 +1,11 @@
-export const useToogleItem = (items: any, item: any, key?: string) => {
-  const index = items.findIndex((value: any) =>
+export const useToogleItem = (items: any[], item: any, key?: string) => {
+  let array = JSON.parse(JSON.stringify(items));
+
+  const index = array.findIndex((value: any) =>
     !key ? item === value : item[key] === value[key]
   );
-  index === -1 ? items.push(item) : items.splice(index, 1);
-  return items;
+  index === -1 ? array.push(item) : array.splice(index, 1);
+  return array;
 };
 
 export const useFirestoreAutoId = (): string => {
@@ -23,10 +25,10 @@ export const useColorStatus = (
   type?: 'text' | 'bg'
 ): string => {
   const colors = {
-    pending: 'yellow-darken-2',
-    confirmed: 'light-blue-lighten-2',
-    canceled: 'red-darken-2',
-    completed: 'green-lighten-1',
+    pending: 'yellow',
+    confirmed: 'blue',
+    canceled: 'red',
+    completed: 'green',
   } as any;
 
   const color = colors[status] || 'default';

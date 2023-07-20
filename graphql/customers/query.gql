@@ -7,41 +7,17 @@ query getProfile {
   }
 }
 
-query getPlaceList {
-  placeList {
+query getStoresList {
+  getStoresList {
     id
     name
     address
+    image
   }
 }
 
-query getPlaces($first: Int, $page: Int) {
-  places(first: $first, page: $page) {
-    data {
-      id
-      name
-      description
-      phone
-      image
-      cover
-      address
-      hours
-    }
-    paginatorInfo {
-      currentPage
-      lastPage
-      perPage
-      total
-      hasMorePages
-      count
-      firstItem
-      lastItem
-    }
-  }
-}
-
-query getPlace($id: ID!) {
-  place(id: $id) {
+query getStore($id: ID!) {
+  getStore(id: $id) {
     id
     name
     description
@@ -53,27 +29,15 @@ query getPlace($id: ID!) {
   }
 }
 
-query getOrders(
-  $search: String
-  $place_id: ID
-  $status: OrderStatus
-  $page: Int
-  $orderBy: [QueryOrdersOrderByOrderByClause!]
-) {
-  orders(
-    place_id: $place_id
-    page: $page
-    orderBy: $orderBy
-    status: $status
-    search: $search
-  ) {
+query getOrders($search: String, $store_id: ID!, $status: OrderStatus, $page: Int, $orderBy: [QueryGetOrdersOrderByOrderByClause!]) {
+  getOrders(store_id: $store_id, page: $page, orderBy: $orderBy, status: $status, search: $search) {
     data {
       id
       no
       status
       total
       created_at
-      customer {
+      user {
         id
         name
         avatar
@@ -93,19 +57,20 @@ query getOrders(
   }
 }
 
-query getOrder($id: ID!) {
-  order(id: $id) {
+query getOrder($id: ID!, $store_id: ID!) {
+  getOrder(id: $id, store_id: $store_id) {
     id
     status
     no
     total
-    customer {
+    duration
+    user {
       id
       name
       avatar
       phone
     }
-    place {
+    store {
       id
       name
     }
@@ -130,20 +95,17 @@ query getOrder($id: ID!) {
   }
 }
 
-query getMenus($place_id: ID!) {
-  menus(place_id: $place_id) {
+query getMenus($store_id: ID!) {
+  getMenus(store_id: $store_id) {
     id
     name
     image
-    description
     active
     items {
       id
       name
       image
-      description
       active
-      parent_id
       services {
         id
         name
@@ -155,8 +117,8 @@ query getMenus($place_id: ID!) {
   }
 }
 
-query getService($id: ID!) {
-  service(id: $id) {
+query getService($id: ID!, $store_id: ID!) {
+  getService(id: $id, store_id: $store_id) {
     id
     name
     image
@@ -165,12 +127,12 @@ query getService($id: ID!) {
     description
     top
     active
-    place_id
+    store_id
+    menu_id
     extras {
       id
       multiple
       name
-      description
       active
       options {
         id
@@ -179,13 +141,14 @@ query getService($id: ID!) {
         duration
         description
         active
+        default
       }
     }
   }
 }
 
-query getEmployees($place_id: ID, $search: String) {
-  employees(place_id: $place_id, search: $search) {
+query getUsers($store_id: ID!, $search: String, $page: Int) {
+  getUsers(store_id: $store_id, search: $search, page: $page) {
     data {
       id
       name
@@ -213,20 +176,19 @@ query getEmployees($place_id: ID, $search: String) {
   }
 }
 
-query getEmployee($id: ID!) {
-  employee(id: $id) {
+query getUser($id: ID!) {
+  getUser(id: $id) {
     id
     name
     email
     phone
     avatar
     birthday
-    address
     gender
     active
-    placeIds
+    storeIds
     created_at
-    places {
+    stores {
       id
       name
       address
@@ -235,5 +197,29 @@ query getEmployee($id: ID!) {
       id
       name
     }
+  }
+}
+
+
+query getUsersList($store_id: ID!) {
+  getUsersList(store_id: $store_id) {
+    id
+    name
+  }
+}
+
+query getOrdersList($store_id: ID!, $scheduled_at: Date!, $status: OrderStatus) {
+  getOrdersList(store_id: $store_id, scheduled_at: $scheduled_at, status: $status) {
+    id
+    no
+    status
+    start: scheduled_at
+    end: ended_at
+    duration
+    resourceId: user_id
+    user {
+      id
+      name
+    } 
   }
 }

@@ -42,16 +42,25 @@ mutation deleteMenuServiceExtra($input: MenuServiceExtraDeleteInput!) {
   }
 }
 
-mutation deleteMenuServiceExtraOption(
-  $input: MenuServiceExtraOptionDeleteInput!
-) {
+mutation deleteMenuServiceExtraOption($input: MenuServiceExtraOptionDeleteInput!) {
   deleteMenuServiceExtraOption(input: $input) {
     id
   }
 }
 
-mutation saveEmployee($input: EmployeeInput!) {
-  saveEmployee(input: $input) {
+mutation saveUser($input: UserInput!) {
+  saveUser(input: $input) {
     id
+  }
+}
+
+mutation saveOrder($input: OrderInput!) {
+  saveOrder(input: $input) {
+    id
+    scheduled_at
+    employee {
+      id
+      name
+    }
   }
 }

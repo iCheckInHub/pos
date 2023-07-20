@@ -2,8 +2,8 @@ import type { CodegenConfig } from '@graphql-codegen/cli';
 
 const config: CodegenConfig = {
   overwrite: true,
-  schema: 'http://api.icheckin.test/graphql?schema=pos',
-  documents: 'graphql/**/*.graphql',
+  schema: 'http://api.poscheckin.test/graphql',
+  documents: 'graphql/**/*.gql',
   generates: {
     './types/graphql.ts': {
       plugins: ['typescript', 'typescript-operations'],

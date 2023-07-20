@@ -5,40 +5,21 @@
         <v-list-item class="my-3">
           <template #prepend>
             <v-avatar>
-              <v-img
-                v-if="employee.avatar"
-                :src="(employee.avatar as string)"
-                cover
-              />
+              <v-img v-if="user.avatar" :src="(user.avatar as string)" cover />
               <v-icon v-else icon="mdi-account"></v-icon>
             </v-avatar>
           </template>
           <v-list-item-title>
-            <v-text-field
-              placeholder="Employee Name"
-              v-model="employee.name"
-              variant="plain"
-              density="compact"
-              single-line
-              hide-details
-              class="mt-n3 font-weight-bold"
-            ></v-text-field>
+            <v-text-field placeholder="Employee Name" v-model="user.name" variant="plain" density="compact" single-line
+              hide-details class="mt-n3 font-weight-bold"></v-text-field>
           </v-list-item-title>
-          <v-list-item-subtitle
-            class="text-light-blue text-capitalize text-body-1"
-          >
-            {{ employee?.roles?.map((item: any) => item.name)?.join(', ') }}
+          <v-list-item-subtitle class="text-light-blue text-capitalize text-body-1">
+            {{ user?.roles?.map((item: any) => item.name)?.join(', ') }}
           </v-list-item-subtitle>
           <template #append>
             <v-slide-y-transition>
-              <v-chip
-                v-if="!employee.active"
-                color="red"
-                prepend-icon="mdi-briefcase"
-                variant="text"
-                class="text-capitalize text-body-1 px-1"
-                >Inactive</v-chip
-              >
+              <v-chip v-if="!user.active" color="red" prepend-icon="mdi-briefcase" variant="text"
+                class="text-capitalize text-body-1 px-1">Inactive</v-chip>
             </v-slide-y-transition>
           </template>
         </v-list-item>
@@ -47,107 +28,46 @@
         <v-row>
           <v-col cols="6">
             <v-sheet class="px-3">
-              <v-list-subheader
-                class="font-weight-bold text-secondary text-uppercase"
-                >Contact information</v-list-subheader
-              >
-              <v-text-field
-                label="Phone"
-                v-model="employee.phone"
-                variant="plain"
-              ></v-text-field>
-              <input
-                v-model="employee.phone"
-                v-maska
-                data-maska="+1 ### ###-####"
-                class="d-none"
-              />
-              <v-text-field
-                label="Email"
-                placeholder="Employee email"
-                v-model="employee.email"
-                variant="plain"
-              ></v-text-field>
-              <v-text-field
-                label="Address"
-                placeholder="Employee address"
-                v-model="employee.address"
-                variant="plain"
-              ></v-text-field>
-              <v-list-subheader
-                class="font-weight-bold text-secondary text-uppercase mt-3"
-                >Basic information</v-list-subheader
-              >
-              <v-text-field
-                label="Birthday"
-                placeholder="Employee birthday"
-                v-model="employee.birthday"
-                variant="plain"
-                hint="YYYY-MM-DD"
-              ></v-text-field>
-              <v-select
-                :items="['male', 'female']"
-                label="Gender"
-                v-model="employee.gender"
-                variant="plain"
-                hide-details
-              ></v-select>
-              <v-switch
-                label="Active"
-                color="primary"
-                v-model="employee.active"
-              ></v-switch>
+              <v-list-subheader class="font-weight-bold text-secondary text-uppercase">Contact
+                information</v-list-subheader>
+              <v-text-field label="Phone" v-model="user.phone" variant="plain"></v-text-field>
+              <input v-model="user.phone" v-maska data-maska="+1 ### ###-####" class="d-none" />
+              <v-text-field label="Email" placeholder="Employee email" v-model="user.email"
+                variant="plain"></v-text-field>
+              <v-text-field label="Address" placeholder="Employee address" v-model="user.address"
+                variant="plain"></v-text-field>
+              <v-list-subheader class="font-weight-bold text-secondary text-uppercase mt-3">Basic
+                information</v-list-subheader>
+              <v-text-field label="Birthday" placeholder="Employee birthday" v-model="user.birthday" variant="plain"
+                hint="YYYY-MM-DD"></v-text-field>
+              <v-select :items="['male', 'female']" label="Gender" v-model="user.gender" variant="plain"
+                hide-details></v-select>
+              <v-switch label="Active" color="primary" :true-value="true" :false-value="false"
+                v-model="user.active"></v-switch>
             </v-sheet>
           </v-col>
           <v-divider vertical class="mt-3" />
           <v-col cols="6">
             <v-sheet class="px-3">
-              <v-list-subheader
-                class="font-weight-bold text-secondary text-uppercase"
-                >Places</v-list-subheader
-              >
-              <v-select
-                :items="places"
-                item-title="name"
-                item-value="id"
-                v-model="employee.placeIds"
-                multiple
-                variant="plain"
-              >
-                <template v-slot:selection="{ item }">
-                  <v-list-item
-                    :title="item?.title"
-                    :subtitle="item.raw.address"
-                    class="px-0"
-                  ></v-list-item>
-                </template>
-                <template v-slot:item="{ props, item }">
-                  <v-list-item
-                    v-bind="props"
-                    :prepend-icon="
-                      employee.placeIds?.includes(item.value)
-                        ? 'mdi-checkbox-marked'
-                        : 'mdi-checkbox-blank-outline'
-                    "
-                    :title="item?.title"
-                    :subtitle="item?.value"
-                  ></v-list-item>
-                </template>
-              </v-select>
+              <v-list-subheader class="font-weight-bold text-secondary text-uppercase">Stores</v-list-subheader>
+              <v-list>
+                <v-list-item v-for="store in stores" :title="store.name" :subtitle="store.address" item-value="id"
+                  :value="store.id" @click="
+                    user.storeIds = useToogleItem(user.storeIds, store.id)
+                  " :prepend-icon="
+  user?.storeIds?.includes(store.id)
+    ? 'mdi-checkbox-marked'
+    : 'mdi-checkbox-blank-outline'
+">
+                </v-list-item>
+              </v-list>
             </v-sheet>
           </v-col>
         </v-row>
         <v-card-actions class="ma-5">
           <v-spacer />
-          <v-btn
-            color="primary"
-            rounded="pill"
-            width="120"
-            variant="elevated"
-            type="submit"
-            :loading="loadingSaveEmployee"
-            >Save</v-btn
-          >
+          <v-btn color="primary" rounded="pill" width="120" variant="elevated" type="submit"
+            :loading="loadingSaveUser">Save</v-btn>
         </v-card-actions>
       </v-card>
     </v-form>
@@ -155,13 +75,16 @@
 </template>
 
 <script lang="ts" setup>
+
+
 import { vMaska } from 'maska';
 
 const { params } = useRoute();
-const employee = ref({} as any);
-const { result: resultPlaces } = useGetPlaceListQuery();
+const user = ref({} as any);
 
-const { onResult } = useGetEmployeeQuery(
+const { result: resultStores } = useGetStoresListQuery();
+
+const { onResult } = useGetUserQuery(
   {
     id: params.id as string,
   },
@@ -172,34 +95,35 @@ const { onResult } = useGetEmployeeQuery(
 
 const loading = useQueryLoading();
 
+const stores = computed(() => resultStores?.value?.getStoresList || []);
+
 onResult(({ data }) => {
-  employee.value = Object.assign({}, data?.employee);
+  user.value = Object.assign({}, data?.getUser);
 });
 
-const places = computed(() => {
-  return resultPlaces?.value?.placeList || [];
-});
-
-const { mutate: saveEmployee, loading: loadingSaveEmployee } =
-  useSaveEmployeeMutation(() => ({
+const { mutate: saveUser, loading: loadingSaveUser } = useSaveUserMutation(
+  () => ({
     variables: {
       input: {
-        active: employee.value?.active as boolean,
-        name: employee.value?.name as string,
-        email: employee.value?.email,
-        phone: employee.value?.phone,
-        address: employee.value?.address,
-        avatar: employee.value?.avatar,
-        birthday: employee.value?.birthday,
-        gender: employee.value?.gender,
-        id: employee.value?.id,
-        placeIds: employee.value?.placeIds,
-      } as TEmployeeInput,
+        active: user.value?.active as boolean,
+        name: user.value?.name as string,
+        email: user.value?.email,
+        phone: user.value?.phone,
+        address: user.value?.address,
+        avatar: user.value?.avatar,
+        birthday: user.value?.birthday,
+        gender: user.value?.gender,
+        id: user.value?.id,
+        storeIds: user.value?.storeIds,
+      } as TUserInput,
     },
-    refetchQueries: ['getEmployee'],
-  }));
+    refetchQueries: ['getUser'],
+  })
+);
+
+
 
 const onSave = () => {
-  saveEmployee();
+  saveUser().then(() => useNotifier().toastSuccess("Saved successfully!"));
 };
 </script>

@@ -40,14 +40,7 @@ export default defineNuxtPlugin((nuxtApp) => {
         VBtn: {
           class: 'text-capitalize',
         },
-        VCard: {
-          rounded: 0,
-          variant: 'flat',
-          color: 'transparent',
-        },
-        VSheet: {
-          color: 'transparent',
-        },
+
         VToolbar: {
           color: 'transparent',
         },

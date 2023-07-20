@@ -1,133 +1,154 @@
 <template>
-  <v-container>
-    <v-form @submit.prevent="onSaveMenuService">
-      <v-row>
-        <v-col cols="3">
-          <v-card height="100%" variant="flat" :loading="loading">
-            <v-img
-              :src="service.image"
-              aspect-ratio="1"
-              cover
-              class="d-flex align-end"
+  <v-card>
+    <v-card-item class="pt-7">
+      <v-form @submit.prevent="onSaveService">
+        <v-row>
+          <v-col cols="3">
+            <v-card
+              height="100%"
+              variant="flat"
+              :loading="loading"
+              class="text-center"
             >
+              <v-avatar
+                v-if="!service.image"
+                size="180"
+                icon="mdi-image"
+                color="grey-lighten-3"
+              >
+              </v-avatar>
+              <v-avatar v-else :image="service.image" size="180"> </v-avatar>
+
+              <v-card-actions>
+                <v-file-input
+                  accept="image/*"
+                  label="Change Image"
+                  variant="filled"
+                  prepend-icon=""
+                  single-line
+                  density="compact"
+                  v-model="files"
+                ></v-file-input>
+              </v-card-actions>
+            </v-card>
+          </v-col>
+          <v-col cols="9">
+            <v-card :loading="loading" variant="flat">
+              <v-sheet :max-height="$vuetify.display.height - 250">
+                <v-text-field
+                  v-model="service.name"
+                  label="Name"
+                ></v-text-field>
+                <v-textarea
+                  v-model="service.description"
+                  label="Description"
+                  rows="2"
+                ></v-textarea>
+                <v-row no-gutters>
+                  <v-col>
+                    <v-text-field
+                      v-model.number="service.price"
+                      label="Price"
+                      prepend-inner-icon="mdi-currency-usd"
+                    ></v-text-field>
+                  </v-col>
+                  <v-col>
+                    <v-text-field
+                      v-model.number="service.duration"
+                      label="Duration"
+                      type="number"
+                      prepend-inner-icon="mdi-timer"
+                    ></v-text-field>
+                  </v-col>
+                </v-row>
+              </v-sheet>
+              <v-card-actions>
+                <v-switch
+                  v-model="service.active"
+                  label="Active"
+                  color="primary"
+                  density="compact"
+                  hide-details
+                ></v-switch>
+                <v-switch
+                  v-model="service.top"
+                  label="Top"
+                  color="primary"
+                  density="compact"
+                  hide-details
+                ></v-switch>
+                <v-spacer />
+                <v-btn
+                  variant="outlined"
+                  rounded="pill"
+                  width="120"
+                  :to="{ name: 'menus' }"
+                  >Cancel</v-btn
+                >
+                <v-btn
+                  color="primary"
+                  type="submit"
+                  :loading="loadingSaveService"
+                  variant="flat"
+                  rounded="pill"
+                  width="120"
+                  >Save</v-btn
+                >
+              </v-card-actions>
+            </v-card>
+          </v-col>
+          <v-col cols="12">
+            <div class="d-flex justify-space-between align-center mb-3">
+              <strong class="text-secondary">Extras</strong>
               <v-btn
-                block
-                rounded="0"
-                variant="tonal"
-                color="primary"
-                prepend-icon="mdi-image"
-                >Change image</v-btn
+                color="secondary"
+                size="small"
+                variant="outlined"
+                prepend-icon="mdi-plus"
+                @click="onEditExtra()"
+                >Add extra</v-btn
               >
-            </v-img>
-            <v-switch
-              v-model="service.active"
-              label="Active"
-              color="primary"
-              density="compact"
-              hide-details
-            ></v-switch>
-            <v-switch
-              v-model="service.top"
-              label="Top"
-              color="primary"
-              density="compact"
-              hide-details
-            ></v-switch>
-          </v-card>
-        </v-col>
-        <v-col cols="9">
-          <v-card :loading="loading">
-            <v-card-title class="px-0">{{
-              service.name || 'Service'
-            }}</v-card-title>
-            <v-sheet :max-height="$vuetify.display.height - 250">
-              <v-text-field v-model="service.name" label="Name"></v-text-field>
-              <v-textarea
-                v-model="service.description"
-                label="Description"
-                rows="2"
-              ></v-textarea>
-              <v-row no-gutters>
-                <v-col>
-                  <v-text-field
-                    v-model.number="service.price"
-                    label="Price"
-                    prefix="$"
-                  ></v-text-field>
-                </v-col>
-                <v-col>
-                  <v-text-field
-                    v-model.number="service.duration"
-                    label="Duration"
-                    type="number"
-                    suffix="minutes"
-                  ></v-text-field>
-                </v-col>
-              </v-row>
-            </v-sheet>
-            <v-card-actions>
-              <v-spacer />
-              <v-btn variant="outlined" rounded="pill" width="120"
-                >Cancel</v-btn
-              >
-              <v-btn
-                color="primary"
-                type="submit"
-                :loading="loadingSave"
-                variant="flat"
-                rounded="pill"
-                width="120"
-                >Save</v-btn
-              >
-            </v-card-actions>
-          </v-card>
-        </v-col>
-        <v-col cols="12">
-          <div class="d-flex justify-space-between align-center mb-3">
-            <strong class="text-secondary">Extras</strong>
-            <v-btn
-              color="secondary"
-              size="small"
-              variant="outlined"
-              prepend-icon="mdi-plus"
-              @click="onEditExtra()"
-              >Add extra</v-btn
-            >
-          </div>
-          <v-expansion-panels>
-            <v-expansion-panel v-for="extra in service.extras">
-              <v-expansion-panel-title v-slot="{ expanded }">
-                <v-row align="center" justify="space-between">
-                  <div>
-                    <strong class="text-uppercase">{{ extra.name }}</strong>
-                    <p class="text-secondary text-caption">
-                      {{ extra.multiple ? 'Multiple select' : 'Single select' }}
-                    </p>
-                  </div>
-                  <v-fade-transition>
+            </div>
+            <template v-for="extra in service.extras">
+              <v-card class="mb-5">
+                <v-list-item class="bg-grey-lighten-3" lines="two">
+                  <v-list-item-title
+                    class="font-weight-bold"
+                    :class="{ 'text-decoration-line-through': !extra.active }"
+                    >{{ extra.name }}</v-list-item-title
+                  >
+
+                  <template v-slot:append="{ isActive }">
                     <v-btn
-                      v-if="expanded"
-                      :key="extra.id"
                       color="secondary"
                       size="small"
-                      variant="outlined"
-                      class="mr-5"
+                      variant="text"
                       @click.stop="onEditExtra(extra)"
                     >
                       <v-icon>mdi-pencil</v-icon>
                       <v-tooltip activator="parent" location="top"
-                        >Edit this extra</v-tooltip
+                        >Edit Extra</v-tooltip
                       ></v-btn
                     >
-                  </v-fade-transition>
-                </v-row>
-              </v-expansion-panel-title>
-
-              <v-expansion-panel-text>
-                <v-table :density="'compact'">
+                    <v-btn
+                      color="secondary"
+                      size="small"
+                      variant="text"
+                      @click.stop="onEditOption"
+                    >
+                      <v-icon>mdi-plus</v-icon>
+                      <v-tooltip activator="parent" location="top"
+                        >Add new option</v-tooltip
+                      ></v-btn
+                    >
+                  </template>
+                </v-list-item>
+                <v-table
+                  :density="'compact'"
+                  :class="{ 'text-disabled': !extra.active }"
+                >
                   <thead>
                     <tr>
-                      <th>Active</th>
                       <th>Option</th>
                       <th class="text-center">Default</th>
                       <th class="text-right">Duration</th>
@@ -135,43 +156,46 @@
                       <th class="text-right"></th>
                     </tr>
                   </thead>
-                  <tbody class="mx-n6">
+                  <tbody>
                     <v-hover v-slot="{ isHovering, props }">
                       <tr v-for="option in extra.options">
-                        <td class="text-center">
-                          <v-icon
-                            :icon="
-                              option.active
-                                ? 'mdi-checkbox-marked'
-                                : 'mdi-checkbox-blank-outline'
-                            "
-                          />
+                        <td
+                          :class="{
+                            'text-decoration-line-through': !option.active,
+                          }"
+                        >
+                          {{ option.name }}
                         </td>
-                        <td>{{ option.name }}</td>
-                        <td class="text-right">
+                        <td class="text-center">
                           <v-checkbox
                             v-if="extra.multiple"
                             v-model="option.default"
                             hide-details
                             density="compact"
-                            :direction="'horizontal'"
+                            disabled
+                            class="d-flex justify-center"
                           />
-                          <v-radio v-else v-model="option.default"></v-radio>
+                          <v-radio
+                            v-else
+                            v-model="option.default"
+                            disabled
+                            class="d-flex justify-center"
+                          ></v-radio>
                         </td>
                         <td class="text-right">{{ option.duration }}'</td>
                         <td class="text-right">{{ option.price }}</td>
-                        <td>
+                        <td class="text-right">
                           <v-btn
                             color="secondary"
                             size="small"
                             variant="text"
-                            icon
                             @click.stop="
-                              onEditExtraOption({
+                              onEditOption({
                                 ...option,
                                 extra_id: extra.id,
                               })
                             "
+                            :disabled="!extra.active"
                           >
                             <v-icon>mdi-pencil</v-icon>
                             <v-tooltip activator="parent" location="top">
@@ -183,146 +207,155 @@
                     </v-hover>
                   </tbody>
                 </v-table>
-                <v-btn
-                  prepend-icon="mdi-plus"
-                  @click="onEditExtraOption({ extra_id: extra.id })"
-                  variant="outlined"
-                  color="secondary"
-                  block
-                  >Add option</v-btn
-                >
-              </v-expansion-panel-text>
-            </v-expansion-panel>
-          </v-expansion-panels>
-        </v-col>
-      </v-row>
-    </v-form>
-    <v-dialog v-model="dialogExtra" width="500">
-      <v-form @submit.prevent="onSaveMenuServiceExtra">
-        <v-card>
-          <v-card-title> Extra </v-card-title>
-          <v-card-text>
-            <v-text-field v-model="extra.name" label="Name"></v-text-field>
-            <v-textarea
-              v-model="extra.description"
-              label="Description"
-              rows="2"
-            ></v-textarea>
-            <v-row no-gutters>
-              <v-switch
-                v-model="extra.multiple"
-                label="Multiple select"
-                color="primary"
-              ></v-switch>
-              <v-switch
-                v-model="extra.active"
-                label="Active"
-                color="primary"
-              ></v-switch>
-            </v-row>
-          </v-card-text>
-          <v-card-actions>
-            <v-btn @click="onDeleteExtra" color="error" v-if="extra.id"
-              >Delete</v-btn
-            >
-            <v-spacer />
-            <v-btn @click="dialogExtra = false">Close</v-btn>
-            <v-btn color="primary" type="submit">Save</v-btn>
-          </v-card-actions>
-        </v-card>
+              </v-card>
+            </template>
+          </v-col>
+        </v-row>
       </v-form>
-    </v-dialog>
-    <v-dialog v-model="dialogExtraOption" width="500">
-      <v-form @submit.prevent="onSaveMenuServiceExtraOption">
-        <v-card>
-          <v-card-title> Option </v-card-title>
-          <v-card-text>
-            <v-text-field v-model="option.name" label="Name"></v-text-field>
-            <v-textarea
-              v-model="option.description"
-              label="Description"
-              rows="2"
-            ></v-textarea>
-            <v-row no-gutters>
-              <v-col>
-                <v-text-field
-                  v-model.number="option.price"
-                  label="Price"
-                  type="number"
-                  prefix="$"
-                ></v-text-field>
-              </v-col>
-              <v-col>
-                <v-text-field
-                  v-model.number="option.duration"
-                  label="Duration"
-                  type="number"
-                  prefix="min"
-                ></v-text-field>
-              </v-col>
-            </v-row>
-            <v-checkbox
-              v-model="option.active"
-              label="Active"
-              hide-details
-            ></v-checkbox>
-          </v-card-text>
-          <v-card-actions>
-            <v-btn @click="onDeleteExtraOption()" color="error" v-if="option.id"
-              >Delete</v-btn
-            >
-            <v-spacer />
-            <v-btn @click="dialogExtra = false">Close</v-btn>
-            <v-btn color="primary" type="submit">Save</v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-form>
-    </v-dialog>
-  </v-container>
+    </v-card-item>
+    <v-card-text>
+      <v-dialog v-model="dialogExtra" width="500">
+        <v-form @submit.prevent="onSaveExtra">
+          <v-card color="white">
+            <v-card-title> Extra </v-card-title>
+            <v-card-text>
+              <v-text-field v-model="extra.name" label="Name"></v-text-field>
+
+              <v-row no-gutters>
+                <v-switch
+                  v-model="extra.multiple"
+                  label="Multiple select"
+                  color="primary"
+                ></v-switch>
+                <v-switch
+                  v-model="extra.active"
+                  label="Active"
+                  color="primary"
+                ></v-switch>
+              </v-row>
+            </v-card-text>
+            <v-card-actions>
+              <v-btn @click="onDeleteExtra" color="error" v-if="extra.id"
+                >Delete</v-btn
+              >
+              <v-spacer />
+              <v-btn @click="dialogExtra = false">Close</v-btn>
+              <v-btn color="primary" type="submit" :loading="loadingExtra"
+                >Save</v-btn
+              >
+            </v-card-actions>
+          </v-card>
+        </v-form>
+      </v-dialog>
+      <v-dialog v-model="dialogExtraOption" width="500">
+        <v-form @submit.prevent="onSaveOption">
+          <v-card>
+            <v-card-title> Option </v-card-title>
+            <v-card-text>
+              <v-text-field v-model="option.name" label="Name"></v-text-field>
+              <v-textarea
+                v-model="option.description"
+                label="Description"
+                rows="2"
+              ></v-textarea>
+              <v-row no-gutters>
+                <v-col cols="6">
+                  <v-text-field
+                    v-model.number="option.price"
+                    label="Price"
+                    type="number"
+                    prepend-inner-icon="mdi-currency-usd"
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="6">
+                  <v-text-field
+                    v-model.number="option.duration"
+                    label="Duration"
+                    type="number"
+                    prepend-inner-icon="mdi-timer"
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="6">
+                  <v-checkbox
+                    v-model="option.active"
+                    label="Active"
+                    hide-details
+                  ></v-checkbox>
+                </v-col>
+                <v-col cols="6">
+                  <v-checkbox
+                    v-model="option.default"
+                    label="Default option"
+                    hide-details
+                  ></v-checkbox>
+                </v-col>
+              </v-row>
+            </v-card-text>
+            <v-card-actions>
+              <v-btn @click="onDeleteOption()" color="error" v-if="option.id"
+                >Delete</v-btn
+              >
+              <v-spacer />
+              <v-btn @click="dialogExtraOption = false">Close</v-btn>
+              <v-btn color="primary" type="submit" :loading="loadingSaveOption"
+                >Save</v-btn
+              >
+            </v-card-actions>
+          </v-card>
+        </v-form>
+      </v-dialog>
+    </v-card-text>
+  </v-card>
 </template>
 
 <script lang="ts" setup>
 const { params } = useRoute();
 
-const { loading, onResult } = useGetServiceQuery(
+const files = ref<File[]>([]);
+
+const { loading, result, onResult } = useGetServiceQuery(
   {
     id: params.id as any,
+    store_id: useStore().value,
   },
   {
-    enabled: !!params.id,
+    enabled: !!params.id && params.id !== 'new',
   }
 );
 
 const dialogExtra = ref(false);
 const dialogExtraOption = ref(false);
 
-const service = ref({} as any);
+const service = ref({} as TMenuService);
 const extra = ref({} as any);
 const option = ref({} as any);
 
 onResult(({ data }) => {
-  service.value = Object.assign({}, data.service as any);
+  service.value = Object.assign({}, data.getService as any);
 });
 
-const { mutate: saveMenuService, loading: loadingSave } =
+const { query } = useRoute();
+
+const { mutate: saveService, loading: loadingSaveService } =
   useSaveMenuServiceMutation(() => ({
     variables: {
       input: {
         id: service.value.id,
         name: service.value.name,
         description: service.value.description,
-        image: service.value.image,
+        image: files.value.length ? files.value[0] : undefined,
         price: service.value.price,
         duration: service.value.duration,
         active: service.value.active,
         top: service.value.top,
-        place_id: service.value.place_id,
+        store_id: useStore().value,
+        menu_id: service.value.menu_id || (query.menu_id as string),
       },
     },
     refetchQueries: ['getService'],
   }));
 
-const { mutate: saveMenuServiceExtra, loading: loadingSaveMenuServiceExtra } =
+const { mutate: saveExtra, loading: loadingExtra } =
   useSaveMenuServiceExtraMutation(() => ({
     variables: {
       input: {
@@ -332,71 +365,75 @@ const { mutate: saveMenuServiceExtra, loading: loadingSaveMenuServiceExtra } =
         multiple: extra.value.multiple,
         active: extra.value.active,
         service_id: service.value.id as string,
-        place_id: service.value.place_id,
+        store_id: useStore().value,
       },
     },
     refetchQueries: ['getService'],
   }));
 
-const {
-  mutate: saveMenuServiceExtraOption,
-  loading: loadingSaveMenuServiceExtraOption,
-} = useSaveMenuServiceExtraOptionMutation(() => ({
-  variables: {
-    input: {
-      id: option.value.id,
-      name: option.value.name,
-      description: option.value.description,
-      price: option.value.price,
-      duration: option.value.duration,
-      active: option.value.active,
-      extra_id: option.value.extra_id,
-      place_id: service.value.place_id,
-    },
-  },
-  refetchQueries: ['getService'],
-}));
+const { mutate: saveOption, loading: loadingSaveOption } =
+  useSaveMenuServiceExtraOptionMutation(() => {
+    return {
+      variables: {
+        input: {
+          id: option.value.id,
+          name: option.value.name,
+          description: option.value.description,
+          price: option.value.price,
+          duration: option.value.duration,
+          active: option.value.active,
+          default: option.value.default,
+          extra_id: option.value.extra_id,
+          store_id: useStore().value,
+        },
+      },
+      refetchQueries: ['getService'],
+    };
+  });
 
-const {
-  mutate: deleteMenuServiceExtra,
-  loading: loadingDeleteMenuServiceExtra,
-} = useDeleteMenuServiceExtraMutation(() => ({
-  variables: {
-    input: {
-      id: extra.value.id,
-      place_id: service.value.place_id,
+const { mutate: deleteExtra, loading: loadingDeleteExtra } =
+  useDeleteMenuServiceExtraMutation(() => ({
+    variables: {
+      input: {
+        id: extra.value.id,
+        store_id: useStore().value,
+      },
     },
-  },
-  refetchQueries: ['getService'],
-}));
+    refetchQueries: ['getService'],
+  }));
 
-const {
-  mutate: deleteMenuServiceExtraOption,
-  loading: loadingDeleteMenuServiceExtraOption,
-} = useDeleteMenuServiceExtraOptionMutation(() => ({
-  variables: {
-    input: {
-      id: option.value.id,
-      place_id: service.value.place_id,
+const { mutate: deleteOption, loading: loadingDeleteOption } =
+  useDeleteMenuServiceExtraOptionMutation(() => ({
+    variables: {
+      input: {
+        id: option.value.id,
+        store_id: useStore().value,
+      },
     },
-  },
-  refetchQueries: ['getService'],
-}));
+    refetchQueries: ['getService'],
+  }));
 
-const onSaveMenuService = () => {
-  saveMenuService()
-    // .then(() => refetch())
+const onSaveService = () => {
+  // console.log(files.value[0]);
+  // return;
+  saveService()
+    .then((result) => {
+      return useRouter().push({
+        name: 'menus-services-id',
+        params: { id: result?.data?.saveMenuService?.id as string },
+      });
+    })
     .catch((error) => console.error(error));
 };
-const onSaveMenuServiceExtra = () => {
-  saveMenuServiceExtra()
+const onSaveExtra = () => {
+  saveExtra()
     .then(() => {
       dialogExtra.value = false;
     })
     .catch((error) => console.error(error));
 };
-const onSaveMenuServiceExtraOption = () => {
-  saveMenuServiceExtraOption()
+const onSaveOption = () => {
+  saveOption()
     .then(() => {
       dialogExtraOption.value = false;
     })
@@ -407,20 +444,20 @@ const onEditExtra = (item: any = {}) => {
   extra.value = Object.assign({ active: true, multiple: true }, item);
   dialogExtra.value = true;
 };
-const onEditExtraOption = (item: any = {}) => {
+const onEditOption = (item: any = {}) => {
   option.value = Object.assign({ active: true }, item);
   dialogExtraOption.value = true;
 };
 const onDeleteExtra = () => {
-  deleteMenuServiceExtra()
+  deleteExtra()
     .then(() => {
       dialogExtra.value = false;
     })
     .catch((error) => console.error(error));
 };
 
-const onDeleteExtraOption = () => {
-  deleteMenuServiceExtraOption()
+const onDeleteOption = () => {
+  deleteOption()
     .then(() => {
       dialogExtraOption.value = false;
     })

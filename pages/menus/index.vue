@@ -1,26 +1,11 @@
 <template>
   <v-card :loading="loadingMenus">
-    <v-card-text class="d-flex align-center justify-space-between">
-      <v-btn rounded="pill" color="secondary" prepend-icon="mdi-reload"
-        >Refresh</v-btn
-      >
-    </v-card-text>
     <v-card-text>
       <v-row dense>
         <v-col>
-          <v-select
-            :items="places"
-            label="Place"
-            clearable
-            hide-details
-            item-title="name"
-            item-value="id"
-            filter-keys="name"
-            v-model="filters.place_id"
-            :loading="loadingPlaces"
-            density="compact"
-            variant="outlined"
-          />
+          <v-btn rounded="pill" color="secondary" prepend-icon="mdi-reload"
+            >Refresh</v-btn
+          >
         </v-col>
         <v-col>
           <v-text-field
@@ -34,42 +19,161 @@
         </v-col>
       </v-row>
 
-      <v-card color="white" class="mt-5">
+      <v-card color="white" class="mt-5 px-0" variant="flat">
         <v-card-title
           class="d-flex justify-space-between align-center bg-header"
           >Menus
           <v-spacer />
-          <v-btn-toggle
-            v-model="editable"
-            borderless
-            color="primary"
-            rounded="xl"
-            size="x-small"
-            density="compact"
-          >
-            <v-btn
-              value="true"
-              append-icon="mdi-pencil"
-              variant="outlined"
-              width="120"
-            >
-              Edit
-            </v-btn>
-          </v-btn-toggle>
 
-          <!-- <v-switch
-        label="Edit"
-        v-model="editable"
-        color="primary"
-        direction="horizontal"
-        hide-details
-        inline
-        class="d-inline"
-        density="compact"
-      ></v-switch> -->
+          <v-btn color="primary" prepend-icon="mdi-plus" @click="onEditMenu()"
+            >new menu</v-btn
+          >
         </v-card-title>
         <v-list>
-          <v-list-group v-for="menu in menus" fluid>
+          <template v-for="menu in menus">
+            <v-hover>
+              <template v-slot:default="{ isHovering, props }">
+                <v-list-item v-bind="props">
+                  <template #prepend>
+                    <v-btn
+                      icon
+                      variant="text"
+                      v-if="isHovering"
+                      @click="onEditMenu(menu)"
+                    >
+                      <v-avatar icon="mdi-pencil" color="primary"></v-avatar>
+                    </v-btn>
+                    <v-btn icon variant="text" v-else>
+                      <v-avatar
+                        :icon="!menu?.image ? 'mdi-image' : undefined"
+                        :image="menu?.image ? menu?.image : undefined"
+                        color="grey-lighten-3"
+                      ></v-avatar>
+                    </v-btn>
+                  </template>
+                  <v-list-item-title>{{ menu.name }}</v-list-item-title>
+                  <v-list-item-subtitle>
+                    <v-chip v-if="!menu.active" color="red">Inactive</v-chip>
+                  </v-list-item-subtitle>
+                  <template #append>
+                    <v-btn
+                      color="primary"
+                      icon
+                      density="compact"
+                      @click="onEditMenu({ parent_id: menu.id })"
+                    >
+                      <v-icon icon="mdi-playlist-plus" />
+                      <v-tooltip activator="parent" location="top"
+                        >Add sub menu</v-tooltip
+                      >
+                    </v-btn>
+                  </template>
+                </v-list-item>
+              </template>
+            </v-hover>
+
+            <template v-for="item in menu.items">
+              <v-hover>
+                <template v-slot:default="{ isHovering, props }">
+                  <v-list-item class="ml-10" v-bind="props">
+                    <template #prepend>
+                      <v-btn
+                        icon
+                        variant="text"
+                        v-if="isHovering"
+                        @click="onEditMenu({ ...item, parent_id: menu.id })"
+                      >
+                        <v-avatar
+                          icon="mdi-pencil"
+                          color="grey-lighten-3"
+                        ></v-avatar>
+                      </v-btn>
+                      <v-btn icon variant="text" v-else>
+                        <v-avatar
+                          :icon="!item?.image ? 'mdi-image' : undefined"
+                          :image="item?.image ? item?.image : undefined"
+                          color="grey-lighten-3"
+                        ></v-avatar>
+                      </v-btn>
+                    </template>
+                    <template #append>
+                      <v-btn
+                        color="primary"
+                        icon
+                        density="compact"
+                        :to="{
+                          name: 'menus-services-id',
+                          params: {
+                            id: 'new',
+                          },
+                          query: {
+                            menu_id: item.id,
+                          },
+                        }"
+                      >
+                        <v-icon icon="mdi-playlist-plus" />
+                        <v-tooltip activator="parent" location="top"
+                          >Add service</v-tooltip
+                        >
+                      </v-btn>
+                    </template>
+                    <v-list-item-title>{{ item.name }}</v-list-item-title>
+                    <v-list-item-subtitle>
+                      <v-chip v-if="!item.active" color="red">Inactive</v-chip>
+                    </v-list-item-subtitle>
+                  </v-list-item>
+                </template>
+              </v-hover>
+              <template v-for="service in item.services">
+                <v-hover>
+                  <template v-slot:default="{ isHovering, props }">
+                    <v-list-item v-bind="props" class="ml-16 pl-8">
+                      <template #prepend>
+                        <v-btn
+                          icon
+                          variant="text"
+                          v-if="isHovering"
+                          :to="{
+                            name: 'menus-services-id',
+                            params: {
+                              id: service.id,
+                            },
+                          }"
+                        >
+                          <v-avatar
+                            icon="mdi-pencil"
+                            color="grey-lighten-3"
+                          ></v-avatar>
+                        </v-btn>
+                        <v-btn icon variant="text" v-else>
+                          <v-avatar
+                            :icon="!service?.image ? 'mdi-image' : undefined"
+                            :image="service?.image ? service?.image : undefined"
+                            color="grey-lighten-3"
+                          ></v-avatar>
+                        </v-btn>
+                      </template>
+                      <v-list-item-title class="font-weight-bold">{{
+                        service.name
+                      }}</v-list-item-title>
+                      <v-list-item-subtitle>
+                        <v-chip v-if="!service.active" color="red"
+                          >Inactive</v-chip
+                        >
+                      </v-list-item-subtitle>
+                      <template v-slot:append>
+                        <strong class="text-secondary">{{
+                          service.price
+                        }}</strong>
+                      </template>
+                    </v-list-item>
+                  </template>
+                </v-hover>
+              </template>
+            </template>
+          </template>
+
+          <!-- <v-list-group v-for="menu in menus" fluid>
             <template v-slot:activator="{ props }">
               <v-list-item v-bind="props" class="px-2">
                 <template #prepend>
@@ -99,92 +203,8 @@
                 </v-list-item-subtitle>
               </v-list-item>
             </template>
-
-            <v-list-group v-for="item in menu.items">
-              <template v-slot:activator="{ props }">
-                <v-list-item v-bind="props" class="ml-8">
-                  <template #prepend>
-                    <v-btn icon variant="text" @click="onEditMenu(item)">
-                      <v-avatar color="grey-lighten-3">
-                        <v-fade-transition leave-absolute>
-                          <v-img
-                            v-if="!editable"
-                            :src="(item?.image as string)"
-                            cover
-                            :key="`image-${item.id}`"
-                          />
-                          <v-icon
-                            :key="`icon-${item.id}`"
-                            v-else
-                            icon="mdi-pencil-outline"
-                          />
-                        </v-fade-transition>
-                      </v-avatar>
-                    </v-btn>
-                  </template>
-                  <v-list-item-title class="font-weight-bold">{{
-                    item.name
-                  }}</v-list-item-title>
-                  <v-list-item-subtitle>
-                    <span v-if="!item.active" class="text-error">Inactive</span>
-                  </v-list-item-subtitle>
-                </v-list-item>
-              </template>
-
-              <v-list-item
-                v-for="service in item.services"
-                :to="{
-                  name: 'menus-services-id',
-                  params: {
-                    id: service.id,
-                  },
-                }"
-                class="ml-4"
-              >
-                <template #prepend>
-                  <v-btn icon variant="text">
-                    <v-avatar color="grey-lighten-3">
-                      <v-fade-transition leave-absolute>
-                        <v-img
-                          v-if="!editable"
-                          :src="(service?.image as string)"
-                          cover
-                          :key="`image-${service.id}`"
-                        />
-                        <v-icon
-                          :key="`icon-${service.id}`"
-                          v-else
-                          icon="mdi-pencil-outline"
-                        />
-                      </v-fade-transition>
-                    </v-avatar>
-                  </v-btn>
-                </template>
-                <v-list-item-title class="font-weight-bold">{{
-                  service.name
-                }}</v-list-item-title>
-                <v-list-item-subtitle>
-                  <span v-if="!service.active" class="text-error"
-                    >Inactive</span
-                  >
-                </v-list-item-subtitle>
-                <template v-slot:append>
-                  <strong class="text-secondary">{{ service.price }}</strong>
-                </template>
-              </v-list-item>
-            </v-list-group>
-          </v-list-group>
+          </v-list-group> -->
         </v-list>
-
-        <v-card-actions>
-          <v-btn
-            block
-            color="primary"
-            prepend-icon="mdi-plus"
-            @click="onEditMenu()"
-            >Add new menu</v-btn
-          >
-        </v-card-actions>
       </v-card>
     </v-card-text>
     <v-dialog v-model="dialog" width="500">
@@ -216,11 +236,9 @@
           ></v-switch>
         </v-card-text>
         <v-card-actions>
-          <v-btn
-            color="primary"
-            block
-            @click="onSaveMenu"
-            :loading="loadingSaveMenu"
+          <v-spacer />
+          <v-btn @click="dialog = false">Close</v-btn>
+          <v-btn color="primary" @click="onSaveMenu" :loading="loadingSaveMenu"
             >Save</v-btn
           >
         </v-card-actions>
@@ -229,18 +247,16 @@
   </v-card>
 </template>
 <script lang="ts" setup>
-import { useRouteQuery } from '@vueuse/router';
 definePageMeta({
   keepalive: true,
 });
 const filters = reactive({
-  place_id: useRouteQuery('place_id', null, { mode: 'push' }),
   search: '',
 });
 
 const filterVariables = computed(() => {
   return filterEmptyProperties({
-    place_id: filters.place_id,
+    store_id: useStore().value,
   });
 });
 
@@ -251,18 +267,6 @@ const menu = ref<any>({
 });
 
 const {
-  loading: loadingPlaces,
-  result: resultPlaces,
-  onResult,
-} = useGetPlaceListQuery();
-
-onResult((result) => {
-  if (result?.data.placeList?.length) {
-    filters.place_id = result?.data.placeList[0].id as any;
-  }
-});
-
-const {
   loading: loadingMenus,
   result: resultMenus,
   refetch: refetchMenus,
@@ -270,7 +274,6 @@ const {
   () => filterVariables.value as any,
   () => ({
     debounce: 500,
-    enabled: !!filterVariables.value.place_id,
   })
 );
 
@@ -283,18 +286,17 @@ const { mutate: saveMenu, loading: loadingSaveMenu } = useSaveMenuMutation(
         description: menu.value.description,
         active: menu.value.active,
         parent_id: menu.value.parent_id,
-        place_id: menu.value.place_id,
+        store_id: useStore().value,
       },
     },
   })
 );
 
-const places = computed(() => resultPlaces.value?.placeList ?? []);
-const menus = computed(() => resultMenus.value?.menus ?? []);
+const menus = computed(() => resultMenus.value?.getMenus ?? []);
 
 const onEditMenu = (item: any = {}) => {
   dialog.value = true;
-  menu.value = Object.assign({ place_id: filters.place_id }, item);
+  menu.value = { ...item };
 };
 const onSaveMenu = () => {
   saveMenu()

@@ -23,21 +23,6 @@
     <v-card-text class="d-flex">
       <v-row dense>
         <v-col>
-          <v-select
-            density="compact"
-            :items="places"
-            label="Places"
-            clearable
-            :loading="loadingPlaces"
-            hide-details
-            item-title="name"
-            item-value="id"
-            v-model="filters.place_id"
-            variant="outlined"
-            color="secondary"
-          />
-        </v-col>
-        <v-col>
           <v-combobox
             :items="['Pending', 'Completed']"
             density="compact"
@@ -65,7 +50,7 @@
         :headers="headers"
         :items-length="paginator.total"
         :items="employees"
-        :loading="loadingEmployees"
+        :loading="loadingUsers"
         multi-sort
         hide-default-footer
         @click:row="(event:any, {item}:any) => $router.push({name: 'employees-id', params: {id: item.value}})"
@@ -110,7 +95,6 @@ definePageMeta({
 });
 const filters = reactive({
   page: useRouteQuery<string>('page', '1', { mode: 'push' }),
-  place_id: useRouteQuery('place_id', null, { mode: 'push' }),
   search: useRouteQuery('search', null, { mode: 'push' }),
 });
 
@@ -119,7 +103,7 @@ const mask = new Mask({ mask: '+# (###) ###-####' });
 const filterVariables = computed(() => {
   return filterEmptyProperties({
     page: parseInt(filters.page),
-    place_id: filters.place_id,
+    store_id: useStore().value,
     search: filters.search,
   });
 });
@@ -131,17 +115,15 @@ const headers = [
   { title: 'Roles', key: 'roles', align: 'end' },
 ];
 
-const { loading: loadingPlaces, result: resultPlaces } = useGetPlaceListQuery();
-
-const { result: resultEmployees, loading: loadingEmployees } =
-  useGetEmployeesQuery(() => filterVariables.value, {
+const { result: resultUsers, loading: loadingUsers } = useGetUsersQuery(
+  () => filterVariables.value as any,
+  {
     debounce: 500,
-  });
+  }
+);
 
-const places = computed(() => resultPlaces.value?.placeList ?? []);
-const employees = computed(() => resultEmployees.value?.employees?.data ?? []);
+const employees = computed(() => resultUsers.value?.getUsers?.data ?? []);
 const paginator = computed(
-  () =>
-    (resultEmployees.value?.employees?.paginatorInfo ?? {}) as TPaginatorInfo
+  () => (resultUsers.value?.getUsers?.paginatorInfo ?? {}) as TPaginatorInfo
 );
 </script>
